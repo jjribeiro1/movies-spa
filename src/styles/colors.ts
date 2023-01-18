@@ -8,7 +8,7 @@ export const colors = {
   logoTitle: '#e2b217',
   btnOne: '#fbcb1a',
   pageBg: '#050c17',
-  lightBg: '#10171d',
+  lightBg: '#11161c',
   lightBg2: '#222c38',
   lightBg3: '#1c252f',
   inputBg: '#e8f0fe',

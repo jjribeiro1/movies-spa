@@ -1,6 +1,6 @@
 import { colors } from './colors';
 
-const theme = {
+export const theme = {
   colors,
 } as const;
 

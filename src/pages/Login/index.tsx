@@ -10,8 +10,9 @@ import {
   DialogContent,
 } from './style';
 import * as Dialog from '@radix-ui/react-dialog';
+import { RegisterUserForm } from '../../components/register-user';
 
-export const Login = () => {
+export function Login() {
   return (
     <LoginSection>
       <Dialog.Root>
@@ -34,14 +35,12 @@ export const Login = () => {
           </Register>
         </LoginForm>
 
-        <Dialog.Portal>
-          <DialogOverlay>
-            <DialogContent>
-              <h2>MODAL</h2>
-            </DialogContent>
-          </DialogOverlay>
-        </Dialog.Portal>
+        <DialogOverlay>
+          <DialogContent>
+            <RegisterUserForm />
+          </DialogContent>
+        </DialogOverlay>
       </Dialog.Root>
     </LoginSection>
   );
-};
+}

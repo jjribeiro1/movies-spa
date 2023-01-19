@@ -51,6 +51,7 @@ export const FormControls = styled.div`
       padding: 0.6rem;
       height: 1.8rem;
       font-size: 1.2rem;
+      border-radius: 5px;
       background-color: ${theme.colors.inputBg};
     }
   `}
@@ -71,6 +72,7 @@ export const SubmitButton = styled.button`
     font-weight: 400;
     color: ${theme.colors.textThree};
     background-color: ${theme.colors.btnOne};
+    border-style: none;
     :hover {
       cursor: pointer;
     }
@@ -98,14 +100,19 @@ export const DialogTrigger = styled(Dialog.Trigger)`
 `;
 
 export const DialogOverlay = styled(Dialog.Overlay)`
-  inset: 0;
-  position: absolute;
-  background-color: cornsilk;
-  width: 100%;
-  height: 100%;
+  ${({ theme }) => css`
+    inset: 0;
+    position: absolute;
+    background-color: ${theme.colors.lightBg};
+    width: 100%;
+    height: 100%;
+  `}
 `;
 
 export const DialogContent = styled(Dialog.Content)`
-  background-color: red;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 `;

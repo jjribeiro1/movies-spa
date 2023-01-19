@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
+import * as Dialog from '@radix-ui/react-dialog';
 
 export const LoginSection = styled.section`
   ${({ theme }) => css`
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,7 +56,7 @@ export const FormControls = styled.div`
   `}
 `;
 
-export const Button = styled.button`
+export const SubmitButton = styled.button`
   ${({ theme }) => css`
     display: flex;
     justify-content: center;
@@ -81,14 +83,29 @@ export const Register = styled.div`
     gap: 1rem;
     margin: 1.4rem auto;
     color: ${theme.colors.textTwo};
+  `}
+`;
 
-    button {
-      background-color: ${theme.colors.lightBg};
-      color: ${theme.colors.textFive};
-      border-style: none;
-      :hover {
-        cursor: pointer;
-      }
+export const DialogTrigger = styled(Dialog.Trigger)`
+  ${({ theme }) => css`
+    background-color: ${theme.colors.lightBg};
+    color: ${theme.colors.textFive};
+    border-style: none;
+    :hover {
+      cursor: pointer;
     }
   `}
+`;
+
+export const DialogOverlay = styled(Dialog.Overlay)`
+  inset: 0;
+  position: absolute;
+  background-color: cornsilk;
+  width: 100%;
+  height: 100%;
+`;
+
+export const DialogContent = styled(Dialog.Content)`
+  background-color: red;
+  text-align: center;
 `;

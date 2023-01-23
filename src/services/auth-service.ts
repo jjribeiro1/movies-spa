@@ -17,7 +17,7 @@ type LoginDataResponse = {
   token: string;
 };
 
-const createAuthService = () => ({
+const makeAuthService = () => ({
   async login({ email, password }: LoginInput) {
     const request = await api.post<LoginDataResponse>('/auth', { email, password });
     LocalStorageHelper.setItem('access_Token', request.data.token);
@@ -25,4 +25,4 @@ const createAuthService = () => ({
   },
 });
 
-export const AuthService = createAuthService();
+export const AuthService = makeAuthService();

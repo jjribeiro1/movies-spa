@@ -14,13 +14,15 @@ import { RegisterUserForm } from '../../components/register-user';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { AuthService } from '../../services/auth-service';
 import { ToastMessage } from '../../components/toast';
+import { ValidateEmail } from '../../validations/email-validator';
+import { ValidatePassword } from '../../validations/password-validator';
 
 export function Login() {
   const [inputValues, setInputValues] = useState({
     email: '',
     password: '',
   });
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -30,6 +32,27 @@ export function Login() {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const error = [];
+
+    const { email, password } = inputValues;
+    const emailIsValid = ValidateEmail(email);
+    const passwordIsValid = ValidatePassword(password);
+
+    if (!emailIsValid) {
+      error.push('Email inválido');
+    }
+    if (!passwordIsValid) {
+      error.push(
+        'Senha deve conter no mínimo 8 caracteres, um caracter especial(!, @, #, $, %) e um número '
+      );
+    }
+
+    if (error.length > 0) {
+      setErrors(error);
+      setOpen(true);
+      return;
+    }
+
     authentication();
   }
 
@@ -37,9 +60,13 @@ export function Login() {
     try {
       await AuthService.login(inputValues);
     } catch (error: any) {
-      console.log(error.response.data);
+      if (error.response.status === 401) {
+        setErrors(['Email ou senha incorretos']);
+        setOpen(true);
+        return
+      }
+      setErrors(['Um erro inesperado ocorreu ao fazer login']);
       setOpen(true);
-      setErrors(error.response.data.message);
     }
   }
 

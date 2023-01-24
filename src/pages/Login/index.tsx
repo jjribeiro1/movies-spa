@@ -16,8 +16,11 @@ import { AuthService } from '../../services/auth-service';
 import { ToastMessage } from '../../components/toast';
 import { ValidateEmail } from '../../validations/email-validator';
 import { ValidatePassword } from '../../validations/password-validator';
+import { useNavigate } from 'react-router-dom';
+import { LocalStorageHelper } from '../../helper/local-storage';
 
 export function Login() {
+  const navigate = useNavigate();
   const [inputValues, setInputValues] = useState({
     email: '',
     password: '',
@@ -60,6 +63,10 @@ export function Login() {
   async function authentication() {
     try {
       await AuthService.login(inputValues);
+      const token = LocalStorageHelper.getItem('access_token');
+      if (token) {
+        navigate('/profile');
+      }
     } catch (error: any) {
       if (error.response.status === 401) {
         setErrors(['Email ou senha incorretos']);

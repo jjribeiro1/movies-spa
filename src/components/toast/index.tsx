@@ -2,16 +2,16 @@ import * as Toast from '@radix-ui/react-toast';
 import { ToastClose, ToastDescription, ToastRoot, ToastTitle, ToastViewport } from './style';
 
 type ToastMessageProps = {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  openToast: boolean;
+  setOpenToast: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
   messages: string[];
 };
 
-export function ToastMessage({ open, setOpen, title, messages }: ToastMessageProps) {
+export function ToastMessage({ openToast, setOpenToast, title, messages }: ToastMessageProps) {
   return (
     <Toast.Provider duration={5000}>
-      <ToastRoot open={open} onOpenChange={setOpen} defaultOpen={false}>
+      <ToastRoot open={openToast} onOpenChange={setOpenToast} defaultOpen={false}>
         <ToastTitle>{title}</ToastTitle>
         <ToastClose>X</ToastClose>
         <ToastDescription>

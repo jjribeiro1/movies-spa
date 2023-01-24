@@ -23,7 +23,8 @@ export function Login() {
     password: '',
   });
   const [errors, setErrors] = useState<string[]>([]);
-  const [open, setOpen] = useState(false);
+  const [openToast, setOpenToast] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -49,7 +50,7 @@ export function Login() {
 
     if (error.length > 0) {
       setErrors(error);
-      setOpen(true);
+      setOpenToast(true);
       return;
     }
 
@@ -62,17 +63,17 @@ export function Login() {
     } catch (error: any) {
       if (error.response.status === 401) {
         setErrors(['Email ou senha incorretos']);
-        setOpen(true);
+        setOpenToast(true);
         return;
       }
       setErrors(['Um erro inesperado ocorreu ao fazer login']);
-      setOpen(true);
+      setOpenToast(true);
     }
   }
 
   return (
     <LoginSection>
-      <Dialog.Root>
+      <Dialog.Root open={openRegister} onOpenChange={setOpenRegister}>
         <LoginForm onSubmit={handleSubmit}>
           <FormTitle>Login</FormTitle>
           <FormControls>
@@ -94,12 +95,17 @@ export function Login() {
         <Dialog.Portal>
           <DialogOverlay>
             <DialogContent>
-              <RegisterUserForm />
+              <RegisterUserForm setOpenRegister={setOpenRegister} />
             </DialogContent>
           </DialogOverlay>
         </Dialog.Portal>
       </Dialog.Root>
-      <ToastMessage open={open} setOpen={setOpen} title="Erro ao fazer login" messages={errors} />
+      <ToastMessage
+        openToast={openToast}
+        setOpenToast={setOpenToast}
+        title="Erro ao fazer login"
+        messages={errors}
+      />
     </LoginSection>
   );
 }

@@ -12,5 +12,5 @@ export const colors = {
   lightBg2: '#222c38',
   lightBg3: '#1c252f',
   inputBg: '#e8f0fe',
-  toastFail: '#e62f30'
+  toastFail: '#e62f30',
 };

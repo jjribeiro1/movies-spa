@@ -63,7 +63,7 @@ export function Login() {
       if (error.response.status === 401) {
         setErrors(['Email ou senha incorretos']);
         setOpen(true);
-        return
+        return;
       }
       setErrors(['Um erro inesperado ocorreu ao fazer login']);
       setOpen(true);

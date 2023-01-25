@@ -1,3 +1,8 @@
+export type CreateProfileInput = {
+  name: string;
+  imageUrl: string;
+};
+
 export type Profile = {
   id: string;
   name: string;

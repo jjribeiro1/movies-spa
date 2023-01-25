@@ -1,4 +1,5 @@
-import styled, { css } from "styled-components";
+import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 export const Card = styled.div`
   ${({ theme }) => css`
@@ -19,13 +20,21 @@ export const Card = styled.div`
       transform: scale(1.15);
     }
     img {
+      margin-top: 15px;
       max-width: 100%;
       height: auto;
       display: block;
     }
 
     h2 {
+      margin-top: 15px;
+      font-size: 1.3rem;
       color: ${theme.colors.textFour};
     }
   `}
+`;
+
+export const RouterDomLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
 `;

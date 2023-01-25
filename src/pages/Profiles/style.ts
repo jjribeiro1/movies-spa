@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import * as Dialog from '@radix-ui/react-dialog'
+import * as Dialog from '@radix-ui/react-dialog';
 
 export const ProfilesSection = styled.section`
   ${({ theme }) => css`
@@ -28,7 +28,7 @@ export const NewProfile = styled(Dialog.Trigger)`
     justify-content: center;
     align-items: center;
     padding: 0.3rem;
-    margin-top: 1.5rem;
+    margin-top: 4.5rem;
     width: 10rem;
     height: 2.5rem;
     border-radius: 6px;

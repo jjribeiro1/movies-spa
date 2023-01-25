@@ -1,13 +1,9 @@
 import { api } from '../api';
-
-type RegisterUserInput = {
-  name: string;
-  email: string;
-  password: string;
-  cpf: string;
-};
-
-type RegisterUserOutput = RegisterUserInput & { id: string };
+import {
+  GetUserByIdOutput,
+  RegisterUserInput,
+  RegisterUserOutput,
+} from '../types/user-service-types';
 
 const makeUserService = () => ({
   async register({ name, email, password, cpf }: RegisterUserInput) {
@@ -20,6 +16,11 @@ const makeUserService = () => ({
     });
 
     return request;
+  },
+
+  async getById(id: string) {
+    const request = await api.get<GetUserByIdOutput>(`/user/${id}`);
+    return request.data;
   },
 });
 

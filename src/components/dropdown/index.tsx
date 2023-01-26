@@ -1,4 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { useNavigate } from 'react-router-dom';
 import {
   Trigger,
   SettingsIcon,
@@ -8,6 +9,7 @@ import {
 } from './style';
 
 export function Dropdown() {
+  const navigate = useNavigate();
   return (
     <DropdownMenu.Root>
       <Trigger>
@@ -17,7 +19,7 @@ export function Dropdown() {
       <DropdownMenu.Portal>
         <DropdownMenuContent>
           <DropdownGroup>
-            <DropdownMenuItem>Gerenciar gêneros</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate('/manage-genres')}>Gerenciar gêneros</DropdownMenuItem>
             <DropdownMenuItem>Gerenciar streamings</DropdownMenuItem>
             <DropdownMenuItem>Gerenciar filmes</DropdownMenuItem>
             <DropdownMenuItem>Perfis</DropdownMenuItem>

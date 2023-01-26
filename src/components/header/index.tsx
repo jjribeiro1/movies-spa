@@ -1,15 +1,23 @@
 import React from 'react';
-import { HamburgerIcon, HeaderContainer, LogoContainer, LogoIcon, LogoTitle, NavBar, SettingsIcon } from './style';
+import { Dropdown } from '../dropdown';
+import {
+  HamburgerIcon,
+  HeaderContainer,
+  LogoContainer,
+  LogoIcon,
+  LogoTitle,
+  NavBar,
+} from './style';
 export function Header() {
   return (
     <HeaderContainer>
       <NavBar>
-        <HamburgerIcon/>
+        <HamburgerIcon />
         <LogoContainer>
           <LogoIcon />
           <LogoTitle>Just Watch</LogoTitle>
         </LogoContainer>
-        <SettingsIcon />
+        <Dropdown />
       </NavBar>
     </HeaderContainer>
   );

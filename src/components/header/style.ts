@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import { BiMoviePlay } from 'react-icons/bi';
-import { MdManageAccounts } from 'react-icons/md';
 import { RxHamburgerMenu } from 'react-icons/rx';
 
 export const HeaderContainer = styled.header`
@@ -40,18 +39,10 @@ export const LogoTitle = styled.h1`
   `}
 `;
 
-export const SettingsIcon = styled(MdManageAccounts)`
-  ${({ theme }) => css`
-    height: 30px;
-    width: 30px;
-    color: ${theme.colors.textFour};
-  `}
-`;
-
 export const HamburgerIcon = styled(RxHamburgerMenu)`
   ${({ theme }) => css`
-    height: 25px;
-    width: 25px;
+    height: 35px;
+    width: 35px;
     color: ${theme.colors.textFour};
   `}
 `;

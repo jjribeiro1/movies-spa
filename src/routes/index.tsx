@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 import { ManageGenres } from '../pages/Manage-Genres';
+import { ManageStreamings } from '../pages/Manage-Streamings';
 import { Profiles } from '../pages/Profiles';
 
 export const router = createBrowserRouter([
@@ -22,5 +23,9 @@ export const router = createBrowserRouter([
   {
     path: '/manage-genres',
     element: <ManageGenres />
+  },
+  {
+    path: '/manage-streamings',
+    element: <ManageStreamings />
   }
 ]);

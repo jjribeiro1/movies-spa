@@ -20,7 +20,7 @@ export function Dropdown() {
         <DropdownMenuContent>
           <DropdownGroup>
             <DropdownMenuItem onClick={() => navigate('/manage-genres')}>Gerenciar gêneros</DropdownMenuItem>
-            <DropdownMenuItem>Gerenciar streamings</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate('/manage-streamings')}>Gerenciar streamings</DropdownMenuItem>
             <DropdownMenuItem>Gerenciar filmes</DropdownMenuItem>
             <DropdownMenuItem>Perfis</DropdownMenuItem>
             <DropdownMenuItem>Sair</DropdownMenuItem>

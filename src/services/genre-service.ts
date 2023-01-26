@@ -6,6 +6,11 @@ const makeGenreService = () => ({
     const request = await api.post<Genre>('/genre', { name });
     return request.data;
   },
+
+  async getAll() {
+    const request = await api.get<Genre[]>('/genre');
+    return request.data;
+  },
 });
 
 export const GenreService = makeGenreService();

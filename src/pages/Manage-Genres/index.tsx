@@ -1,21 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/header';
 import { GenreService } from '../../services/genre-service';
-import { CreateGenreInput } from '../../types/genre-service-types';
-import { CreateGenreButton, CreateGenreContainer, GenreInput, ManageSection, Title } from './style';
+import { CreateGenreInput, Genre } from '../../types/genre-service-types';
+import {
+  CreateGenreButton,
+  CreateGenreContainer,
+  GenreInput,
+  GenreItem,
+  GenreList,
+  ManageSection,
+  Title,
+} from './style';
 
 export function ManageGenres() {
   const [inputValue, setInputValue] = useState<CreateGenreInput>({
     name: '',
   });
+  const [genres, setGenres] = useState<Genre[]>([]);
+  const [control, setControl] = useState(false);
 
-  async function handleSubmit() {
+  async function getGenres() {
     try {
-      await GenreService.create(inputValue);
+      const data = await GenreService.getAll();
+      setGenres(data);
     } catch (error) {
       console.log(error);
     }
   }
+
+  async function handleSubmit() {
+    try {
+      await GenreService.create(inputValue);
+      setControl(!control);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getGenres();
+  }, [control]);
 
   return (
     <ManageSection>
@@ -30,6 +54,11 @@ export function ManageGenres() {
         <CreateGenreButton onClick={handleSubmit}>Cadastrar</CreateGenreButton>
       </CreateGenreContainer>
       <Title>Generos Cadastrados:</Title>
+      <GenreList>
+        {genres.map((genre) => (
+          <GenreItem key={genre.id}>{genre.name}</GenreItem>
+        ))}
+      </GenreList>
     </ManageSection>
   );
 }

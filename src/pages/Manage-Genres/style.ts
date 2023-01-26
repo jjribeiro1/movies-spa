@@ -54,3 +54,18 @@ export const Title = styled.h2`
     color: ${theme.colors.textOne};
   `}
 `;
+
+export const GenreList = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  gap: 5px;
+  width: 50%;
+  height: 100%;
+`;
+
+export const GenreItem = styled.div`
+  ${({ theme }) => css`
+    color: ${theme.colors.textOne};
+  `}
+`;

@@ -19,7 +19,7 @@ export const CreateStreamingContainer = styled.div`
   align-items: center;
   width: 300px;
   height: 40px;
-  gap: 20px;
+  gap: 10px;
 `;
 
 export const InputControls = styled.div`

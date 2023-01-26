@@ -10,5 +10,6 @@ export const GlobalStyle = createGlobalStyle`
 html, body, #root {
   width: 100%;
   height: 100vh;
+  background-color: #050c17;
 }
 `;

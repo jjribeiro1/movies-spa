@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Header } from '../../components/header';
 import { GenreService } from '../../services/genre-service';
 import { CreateGenreInput, Genre } from '../../types/genre-service-types';
@@ -13,6 +13,7 @@ import {
 } from './style';
 
 export function ManageGenres() {
+  const nameInputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState<CreateGenreInput>({
     name: '',
   });
@@ -32,8 +33,15 @@ export function ManageGenres() {
     try {
       await GenreService.create(inputValue);
       setControl(!control);
+      cleanInputValue()
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  function cleanInputValue() {
+    if (nameInputRef && nameInputRef.current) {
+      nameInputRef.current.value = '';
     }
   }
 
@@ -50,6 +58,7 @@ export function ManageGenres() {
           id="name"
           name="name"
           onChange={(e) => setInputValue({ name: e.target.value })}
+          ref={nameInputRef}
         />
         <CreateGenreButton onClick={handleSubmit}>Cadastrar</CreateGenreButton>
       </CreateGenreContainer>

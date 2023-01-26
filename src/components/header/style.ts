@@ -21,6 +21,7 @@ export const LogoContainer = styled.div`
   align-items: center;
   gap: 3px;
   margin: 0 auto;
+  cursor: pointer;
 `;
 
 export const LogoIcon = styled(BiMoviePlay)`

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Dropdown } from '../dropdown';
 import {
   HamburgerIcon,
@@ -9,11 +10,12 @@ import {
   NavBar,
 } from './style';
 export function Header() {
+  const navigate = useNavigate()
   return (
     <HeaderContainer>
       <NavBar>
         <HamburgerIcon />
-        <LogoContainer>
+        <LogoContainer onClick={() => navigate('/home')}>
           <LogoIcon />
           <LogoTitle>Just Watch</LogoTitle>
         </LogoContainer>

@@ -44,7 +44,7 @@ export const SearchIcon = styled(BiSearch)<SearchIconProps>`
     color: ${theme.colors.textThree};
   `}
   position: absolute;
-  display: ${(props) => (props.inputvalue.length > 1 ? 'none' : 'block')};
+  display: ${(props) => (props.inputvalue.length > 0 ? 'none' : 'block')};
   left: 20px;
   width: 20px;
   height: 20px;

@@ -17,17 +17,20 @@ type LoginDataResponse = {
   token: string;
 };
 
-const makeAuthService = () => ({
-  async login({ email, password }: LoginInput) {
+export function AuthService() {
+  async function login({ email, password }: LoginInput) {
     const request = await api.post<LoginDataResponse>('/auth', { email, password });
     LocalStorageHelper.setItem('access_token', request.data.token);
     LocalStorageHelper.setItem('logged_user', request.data.user);
     return request.data;
-  },
+  }
 
-  logOut() {
+  function logOut() {
     LocalStorageHelper.clear();
-  },
-});
+  }
 
-export const AuthService = makeAuthService();
+  return {
+    login,
+    logOut,
+  };
+}

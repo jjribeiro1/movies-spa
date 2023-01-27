@@ -1,4 +1,4 @@
-const createLocalStorageHelper = () => ({
+export const LocalStorageHelper = {
   getItem(key: string) {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) : null;
@@ -15,6 +15,4 @@ const createLocalStorageHelper = () => ({
   clear() {
     localStorage.clear();
   },
-});
-
-export const LocalStorageHelper = createLocalStorageHelper();
+};

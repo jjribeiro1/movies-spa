@@ -1,8 +1,8 @@
 import { api } from '../api';
 import { Movie, CreateMovieInput } from '../types/movie-service-types';
 
-const makeMovieService = () => ({
-  async create({
+export function MovieService() {
+  async function create({
     name,
     imageUrl,
     ageRating,
@@ -19,17 +19,21 @@ const makeMovieService = () => ({
       streamingIds,
     });
     return request.data;
-  },
+  }
 
-  async getAll() {
+  async function getAll() {
     const request = await api.get<Movie[]>('/movie');
     return request.data;
-  },
+  }
 
-  async delete(id: string) {
+  async function remove(id: string) {
     const request = await api.delete(`/movie/${id}`);
     return request.data;
-  },
-});
+  }
 
-export const MovieService = makeMovieService();
+  return {
+    create,
+    getAll,
+    remove,
+  };
+}

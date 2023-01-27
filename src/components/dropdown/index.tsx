@@ -1,4 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthService } from '../../services/auth-service';
 import {
@@ -9,7 +10,11 @@ import {
   DropdownGroup,
 } from './style';
 
-export function Dropdown() {
+type DropdownProps = {
+  Icon: ReactNode;
+};
+
+export function Dropdown({ Icon }: DropdownProps) {
   const navigate = useNavigate();
   function logOut() {
     AuthService.logOut();
@@ -17,9 +22,7 @@ export function Dropdown() {
   }
   return (
     <DropdownMenu.Root>
-      <Trigger>
-        <SettingsIcon />
-      </Trigger>
+      <Trigger>{Icon}</Trigger>
 
       <DropdownMenu.Portal>
         <DropdownMenuContent>

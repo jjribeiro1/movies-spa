@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Dropdown } from '../dropdown';
+import { SettingsIcon } from '../dropdown/style';
 import {
   HamburgerIcon,
   HeaderContainer,
@@ -10,6 +11,13 @@ import {
   NavBar,
 } from './style';
 export function Header() {
+  function getIcon(){
+    return (
+      <>
+      <SettingsIcon/>
+      </>
+    )
+  }
   const navigate = useNavigate()
   return (
     <HeaderContainer>
@@ -19,7 +27,7 @@ export function Header() {
           <LogoIcon />
           <LogoTitle>Just Watch</LogoTitle>
         </LogoContainer>
-        <Dropdown />
+        <Dropdown Icon={getIcon()}/>
       </NavBar>
     </HeaderContainer>
   );

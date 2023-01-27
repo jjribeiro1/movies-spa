@@ -21,8 +21,12 @@ const makeAuthService = () => ({
   async login({ email, password }: LoginInput) {
     const request = await api.post<LoginDataResponse>('/auth', { email, password });
     LocalStorageHelper.setItem('access_token', request.data.token);
-    LocalStorageHelper.setItem('logged_user', request.data.user)
+    LocalStorageHelper.setItem('logged_user', request.data.user);
     return request.data;
+  },
+
+  logOut() {
+    LocalStorageHelper.clear();
   },
 });
 

@@ -42,7 +42,7 @@ export function CreateProfile({ setOpenCreateModal, control, setControl }: Creat
 
   async function registerProfile() {
     try {
-      await ProfileService.create(inputValues);
+      await ProfileService().create(inputValues)
       setControl(!control)
       setOpenCreateModal(false);
     } catch (error: any) {

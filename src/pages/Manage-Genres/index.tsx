@@ -22,7 +22,7 @@ export function ManageGenres() {
 
   async function getGenres() {
     try {
-      const data = await GenreService.getAll();
+      const data = await GenreService().getAll();
       setGenres(data);
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ export function ManageGenres() {
 
   async function handleSubmit() {
     try {
-      await GenreService.create(inputValue);
+      await GenreService().create(inputValue);
       setControl(!control);
       cleanInputValue()
     } catch (error) {

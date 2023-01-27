@@ -62,7 +62,7 @@ export function Login() {
 
   async function authentication() {
     try {
-      await AuthService.login(inputValues);
+      await AuthService().login(inputValues);
       const token = LocalStorageHelper.getItem('access_token');
       if (token) {
         navigate('/profile');

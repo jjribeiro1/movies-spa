@@ -65,7 +65,7 @@ export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
 
   async function registerUser() {
     try {
-      await UserService.register(inputValues);
+      await UserService().register(inputValues);
       setOpenRegister(false);
     } catch (error: any) {
       if (error.response.data.message === 'Email must be unique') {

@@ -15,7 +15,7 @@ export function Profiles() {
 
   async function getProfiles() {
     const userId = LocalStorageHelper.getItem('logged_user').id;
-    const user = await UserService.getById(userId);
+    const user = await UserService().getById(userId);
     setUserProfiles(user.profiles);
   }
 

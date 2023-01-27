@@ -17,7 +17,7 @@ type DropdownProps = {
 export function Dropdown({ Icon }: DropdownProps) {
   const navigate = useNavigate();
   function logOut() {
-    AuthService.logOut();
+    AuthService().logOut();
     navigate('/');
   }
   return (

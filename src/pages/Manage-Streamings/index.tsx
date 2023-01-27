@@ -24,7 +24,7 @@ export function ManageStreamings() {
 
   async function getStreamings() {
     try {
-      const data = await StreamingService.getAll();
+      const data = await StreamingService().getAll();
       setStreamings(data);
     } catch (error) {
       console.log(error);
@@ -42,7 +42,7 @@ export function ManageStreamings() {
         name: inputValues.name,
         price: parseInt(inputValues.price),
       };
-      await StreamingService.create(data);
+      await StreamingService().create(data);
       setControl(!control);
       cleanInputValues()
     } catch (error) {

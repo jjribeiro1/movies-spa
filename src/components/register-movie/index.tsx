@@ -36,11 +36,11 @@ export function RegisterMovieForm({ control, setControl, setOpenModal }: Registe
   const [streaming, setStreaming] = useState<Streaming[]>([]);
 
   async function getGenres() {
-    const data = await GenreService.getAll();
+    const data = await GenreService().getAll();
     setGenres(data);
   }
   async function getStreaming() {
-    const data = await StreamingService.getAll();
+    const data = await StreamingService().getAll();
     setStreaming(data);
   }
 
@@ -66,7 +66,7 @@ export function RegisterMovieForm({ control, setControl, setOpenModal }: Registe
         genreIds: [genreIds],
         streamingIds: [streamingIds],
       };
-      await MovieService.create(data);
+      await MovieService().create(data);
       setOpenModal(false);
       setControl(!control);
     } catch (error) {

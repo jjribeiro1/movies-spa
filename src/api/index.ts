@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { LocalStorageHelper } from '../helper/local-storage';
-const bearerToken = `Bearer ${LocalStorageHelper.getItem('access_token')}`;
 
 export const api = axios.create({
   baseURL: 'http://localhost:3000',
@@ -8,9 +7,12 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   function (config) {
-    config.headers = {
-      Authorization: bearerToken,
-    };
+    const bearerToken = `Bearer ${LocalStorageHelper.getItem('access_token')}`;
+    if (bearerToken) {
+      config.headers = {
+        Authorization: bearerToken,
+      };
+    }
 
     return config;
   },

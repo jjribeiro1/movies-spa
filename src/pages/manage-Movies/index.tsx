@@ -21,7 +21,7 @@ export function ManageMovies() {
 
   async function getMovies() {
     try {
-      const data = await MovieService.getAll();
+      const data = await MovieService().getAll();
       setMovies(data);
     } catch (error) {
       console.log(error);
@@ -29,7 +29,7 @@ export function ManageMovies() {
   }
 
   async function deleteMovie(id: string) {
-    await MovieService.delete(id)
+    await MovieService().remove(id)
     setControl(!control)
   }
 

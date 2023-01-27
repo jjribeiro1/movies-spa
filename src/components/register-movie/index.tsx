@@ -49,11 +49,6 @@ export function RegisterMovieForm({ control, setControl, setOpenModal }: Registe
     setInputValues((prevValues) => ({ ...prevValues, [name]: value }));
   }
 
-  // function handleSelectChange(e: ChangeEvent<HTMLSelectElement>) {
-  //   const { name, value } = e.target;
-  //   console.log({ [name]: [value] });
-  // }
-
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {

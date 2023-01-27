@@ -19,8 +19,6 @@ export function Home() {
   async function getMovies() {
     try {
       const data = await MovieService().getAll();
-      console.log(data);
-
       setMovies(data);
     } catch (error) {
       console.log(error);

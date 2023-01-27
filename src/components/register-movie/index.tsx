@@ -107,6 +107,7 @@ export function RegisterMovieForm({ control, setControl, setOpenModal }: Registe
       <SelectControls>
         <label htmlFor="">Genero</label>
         <SelectGenre name="genreIds" id="genreIds" onChange={handleChange}>
+          <option defaultValue="" value=""></option>
           {genres.map((genre) => (
             <option key={genre.id} value={genre.id}>
               {genre.name}
@@ -117,6 +118,7 @@ export function RegisterMovieForm({ control, setControl, setOpenModal }: Registe
       <SelectControls>
         <label htmlFor="streaming">Streaming</label>
         <SelectStreaming name="streamingIds" id="streamingIds" onChange={handleChange}>
+          <option defaultValue="" value=""></option>
           {streaming.map((streaming) => (
             <option key={streaming.id} value={streaming.id}>
               {streaming.name}

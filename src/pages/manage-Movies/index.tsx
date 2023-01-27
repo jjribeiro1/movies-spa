@@ -28,6 +28,11 @@ export function ManageMovies() {
     }
   }
 
+  async function deleteMovie(id: string) {
+    await MovieService.delete(id)
+    setControl(!control)
+  }
+
   useEffect(() => {
     getMovies();
   }, [control]);
@@ -52,7 +57,9 @@ export function ManageMovies() {
       <Title>Filmes Cadastrados:</Title>
       <MovieList>
         {movies.map((movie) => (
-          <MovieItem key={movie.id}>{movie.name}</MovieItem>
+          <MovieItem key={movie.id}>
+            {movie.name} <button onClick={() => deleteMovie(movie.id)}>deletar</button>
+          </MovieItem>
         ))}
       </MovieList>
     </ManageMoviesSection>

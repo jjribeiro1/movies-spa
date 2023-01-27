@@ -25,6 +25,11 @@ const makeMovieService = () => ({
     const request = await api.get<Movie[]>('/movie');
     return request.data;
   },
+
+  async delete(id: string) {
+    const request = await api.delete(`/movie/${id}`);
+    return request.data;
+  },
 });
 
 export const MovieService = makeMovieService();

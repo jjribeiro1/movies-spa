@@ -29,7 +29,7 @@ export const Card = styled.div`
     h2 {
       margin-top: 15px;
       font-size: 1.3rem;
-      color: ${theme.colors.textFour};
+      color: ${theme.colors.c4};
     }
   `}
 `;

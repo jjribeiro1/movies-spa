@@ -38,7 +38,7 @@ export const CreateGenreButton = styled.button`
     border-radius: 3px;
     font-size: 1rem;
     font-weight: 400;
-    color: ${theme.colors.textThree};
+    color: ${theme.colors.c3};
     background-color: ${theme.colors.btnOne};
     border-style: none;
     :hover {
@@ -51,7 +51,7 @@ export const Title = styled.h2`
   ${({ theme }) => css`
     margin: 1rem;
     font-size: 1.3rem;
-    color: ${theme.colors.textOne};
+    color: ${theme.colors.c1};
   `}
 `;
 
@@ -66,6 +66,6 @@ export const GenreList = styled.div`
 
 export const GenreItem = styled.div`
   ${({ theme }) => css`
-    color: ${theme.colors.textOne};
+    color: ${theme.colors.c1};
   `}
 `;

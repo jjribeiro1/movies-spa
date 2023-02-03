@@ -30,7 +30,7 @@ export const InputControls = styled.div`
     label {
       font-size: 1.3rem;
       font-weight: 600;
-      color: ${theme.colors.textFour};
+      color: ${theme.colors.c4};
     }
 
     input {
@@ -54,7 +54,7 @@ export const CreateStreamingButton = styled.button`
     border-radius: 3px;
     font-size: 1rem;
     font-weight: 400;
-    color: ${theme.colors.textThree};
+    color: ${theme.colors.c3};
     background-color: ${theme.colors.btnOne};
     border-style: none;
     :hover {
@@ -68,7 +68,7 @@ export const Title = styled.h2`
     margin-top: 5rem;
     margin-left: 2rem;
     font-size: 1.3rem;
-    color: ${theme.colors.textOne};
+    color: ${theme.colors.c1};
   `}
 `;
 
@@ -83,6 +83,6 @@ export const StreamingList = styled.div`
 
 export const StreamingItem = styled.div`
   ${({ theme }) => css`
-    color: ${theme.colors.textOne};
+    color: ${theme.colors.c1};
   `}
 `;

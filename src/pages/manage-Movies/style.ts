@@ -17,7 +17,7 @@ export const DialogTrigger = styled(Dialog.Trigger)`
     width: 10rem;
     height: 2rem;
     margin: 1rem auto;
-    color: ${theme.colors.textFive};
+    color: ${theme.colors.c5};
     border-style: none;
     :hover {
       cursor: pointer;
@@ -48,7 +48,7 @@ export const Title = styled.h2`
     margin-top: 5rem;
     margin-left: 2rem;
     font-size: 1.3rem;
-    color: ${theme.colors.textOne};
+    color: ${theme.colors.c1};
   `}
 `;
 
@@ -63,6 +63,6 @@ export const MovieList = styled.div`
 
 export const MovieItem = styled.div`
   ${({ theme }) => css`
-    color: ${theme.colors.textOne};
+    color: ${theme.colors.c1};
   `}
 `;

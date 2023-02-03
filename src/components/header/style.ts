@@ -19,7 +19,7 @@ export const HamburgerIcon = styled(RxHamburgerMenu)`
   ${({ theme }) => css`
     height: 2rem;
     width: 2rem;
-    color: ${theme.colors.textFour};
+    color: ${theme.colors.c6};
   `}
 `;
 

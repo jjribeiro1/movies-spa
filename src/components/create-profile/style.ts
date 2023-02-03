@@ -29,7 +29,7 @@ export const FormHeader = styled.div`
       border-radius: 5px;
       background-color: inherit;
       border-style: none;
-      color: ${theme.colors.textTwo};
+      color: ${theme.colors.c2};
       font-size: 1.2rem;
 
       :hover {
@@ -43,7 +43,7 @@ export const FormTitle = styled.h2`
   ${({ theme }) => css`
     font-weight: 600;
     font-size: 1.5rem;
-    color: ${theme.colors.textOne};
+    color: ${theme.colors.c1};
   `}
 `;
 
@@ -57,7 +57,7 @@ export const FormControls = styled.div`
     label {
       font-size: 1.3rem;
       font-weight: 600;
-      color: ${theme.colors.textFour};
+      color: ${theme.colors.c4};
     }
 
     input {
@@ -83,7 +83,7 @@ export const SubmitButton = styled.button`
     border-radius: 6px;
     font-size: 1rem;
     font-weight: 400;
-    color: ${theme.colors.textThree};
+    color: ${theme.colors.c3};
     background-color: ${theme.colors.btnOne};
     border-style: none;
     :hover {

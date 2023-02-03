@@ -29,7 +29,7 @@ export const ToastTitle = styled(Toast.Title)`
     width: 200px;
     font-size: 1.2rem;
     font-weight: 600;
-    color: ${theme.colors.textOne};
+    color: ${theme.colors.c1};
   `}
 `;
 
@@ -52,6 +52,6 @@ export const ToastDescription = styled(Toast.Description)`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    color: ${theme.colors.textOne};
+    color: ${theme.colors.c1};
   `}
 `;

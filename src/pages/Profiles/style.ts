@@ -34,7 +34,7 @@ export const NewProfile = styled(Dialog.Trigger)`
     border-radius: 6px;
     font-size: 1rem;
     font-weight: 400;
-    color: ${theme.colors.textOne};
+    color: ${theme.colors.c1};
     background-color: ${theme.colors.lightBg3};
     border-style: none;
     :hover {

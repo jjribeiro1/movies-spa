@@ -21,9 +21,10 @@ export const SearchMovies = styled.div`
 
     input {
       padding: 0.5rem;
-      border-radius: 3px;
+      border-style: none;
+      color: #fff;
       font-size: 1rem;
-      background-color: ${theme.colors.inputBg};
+      background-color: #10161d;
       ::placeholder {
         top: 10px;
         left: 70px;
@@ -41,7 +42,7 @@ type SearchIconProps = {
 
 export const SearchIcon = styled(BiSearch)<SearchIconProps>`
   ${({ theme }) => css`
-    color: ${theme.colors.textThree};
+    color: #666666;
   `}
   position: absolute;
   display: ${(props) => (props.inputvalue.length > 0 ? 'none' : 'block')};

@@ -16,7 +16,7 @@ export const SettingsIcon = styled(MdManageAccounts)`
   ${({ theme }) => css`
     height: 35px;
     width: 35px;
-    color: ${theme.colors.textFour};
+    color: ${theme.colors.c7};
   `}
 `;
 
@@ -28,7 +28,7 @@ export const DropdownMenuContent = styled(DropdownMenu.Content)`
     width: 160px;
     height: 150px;
     border-radius: 5px;
-    background-color: ${theme.colors.textFour};
+    background-color: ${theme.colors.c4};
 
     @media (min-width: 500px) {
       width: 210px;
@@ -50,7 +50,7 @@ export const DropdownMenuItem = styled(DropdownMenu.DropdownMenuItem)`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${theme.colors.textThree};
+    color: ${theme.colors.c3};
     :hover {
       cursor: pointer;
     }

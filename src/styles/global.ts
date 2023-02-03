@@ -14,6 +14,7 @@ html, body, #root {
   height: 100%;
 }
 body {
+  font-family: 'Roboto', sans-serif;
   line-height: 1.5;
 }
 img, picture, video, canvas, svg {

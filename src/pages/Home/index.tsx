@@ -3,7 +3,7 @@ import { Header } from '../../components/header';
 import { MovieCard } from '../../components/movie-card';
 import { MovieService } from '../../services/movies-service';
 import { Movie } from '../../types/movie-service-types';
-import { HomeMain, MovieList, SearchIcon, SearchMovies } from './style';
+import { MainContent, MainWrapper, MovieList, SearchIcon, SearchMovies } from './style';
 
 export function Home() {
   const [searchInput, setSearchInput] = useState('');
@@ -31,21 +31,23 @@ export function Home() {
   return (
     <>
       <Header />
-      <HomeMain>
-        <SearchMovies>
-          <SearchIcon inputvalue={searchInput} />
-          <input
-            type="text"
-            placeholder="Pesquisar"
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
-        </SearchMovies>
-        <MovieList>
-          {filteredMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </MovieList>
-      </HomeMain>
+      <MainWrapper>
+        <MainContent>
+          <SearchMovies>
+            <SearchIcon inputvalue={searchInput} />
+            <input
+              type="text"
+              placeholder="Pesquisar"
+              onChange={(e) => setSearchInput(e.target.value)}
+            ></input>
+          </SearchMovies>
+          <MovieList>
+            {filteredMovies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </MovieList>
+        </MainContent>
+      </MainWrapper>
     </>
   );
 }

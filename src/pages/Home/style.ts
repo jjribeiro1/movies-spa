@@ -1,11 +1,20 @@
 import styled, { css } from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
-export const HomeMain = styled.main`
+
+export const MainWrapper = styled.main`
+  width: 100%;
+`;
+
+export const MainContent = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1440px;
     height: 100%;
-    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
     background-color: ${theme.colors.pageBg};
   `}
   color: white;
@@ -13,21 +22,18 @@ export const HomeMain = styled.main`
 
 export const SearchMovies = styled.div`
   ${({ theme }) => css`
-    display: flex;
+    padding: 3rem;
     position: relative;
-    margin: 2rem auto;
-    align-items: center;
-    padding: 0.2rem;
-
     input {
-      padding: 0.5rem;
+      padding: 0.5rem 3rem;
       border-style: none;
       color: #fff;
-      font-size: 1rem;
-      background-color: #10161d;
+      font-size: 1.2rem;
+      position: relative;
+      background-color: ${theme.colors.c8};
       ::placeholder {
         top: 10px;
-        left: 70px;
+        left: 100px;
         position: absolute;
         font-weight: 600;
         color: gray;
@@ -46,18 +52,21 @@ export const SearchIcon = styled(BiSearch)<SearchIconProps>`
   `}
   position: absolute;
   display: ${(props) => (props.inputvalue.length > 0 ? 'none' : 'block')};
-  left: 20px;
-  width: 20px;
-  height: 20px;
+  top: 60px;
+  left: 70px;
+  width: 1.5rem;
+  height: 1.5rem;
+  z-index: 1;
 `;
 
-export const MovieList = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  margin: 2rem 2rem;
-  padding: 0.5rem;
-  gap: 15px;
-  height: 100%;
+export const MovieList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  padding: 2rem;
+  gap: 20px;
+  max-width: 100%;
+
+  @media screen and (width < 501px) {
+    gap: 10px;
+  }
 `;

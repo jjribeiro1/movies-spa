@@ -29,21 +29,23 @@ export function Home() {
   }, []);
 
   return (
-    <HomeMain>
+    <>
       <Header />
-      <SearchMovies>
-        <SearchIcon inputvalue={searchInput} />
-        <input
-          type="text"
-          placeholder="Pesquisar"
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
-      </SearchMovies>
-      <MovieList>
-        {filteredMovies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-      </MovieList>
-    </HomeMain>
+      <HomeMain>
+        <SearchMovies>
+          <SearchIcon inputvalue={searchInput} />
+          <input
+            type="text"
+            placeholder="Pesquisar"
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </SearchMovies>
+        <MovieList>
+          {filteredMovies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </MovieList>
+      </HomeMain>
+    </>
   );
 }

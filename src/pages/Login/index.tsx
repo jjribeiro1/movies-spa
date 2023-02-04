@@ -1,22 +1,12 @@
-import {
-  SubmitButton,
-  FormTitle,
-  FormControls,
-  LoginForm,
-  LoginSection,
-  Register,
-  DialogTrigger,
-  DialogOverlay,
-  DialogContent,
-} from './style';
-import * as Dialog from '@radix-ui/react-dialog';
-import { RegisterUserForm } from '../../components/register-user';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { AuthService } from '../../services/auth-service';
+import { useNavigate } from 'react-router-dom';
+import { SubmitButton, FormTitle, FormControls, LoginForm, LoginSection, Register } from './style';
+import { RegisterUserForm } from '../../components/register-user';
 import { ToastMessage } from '../../components/toast';
+import { RadixDialog } from '../../components/radix-dialog';
+import { AuthService } from '../../services/auth-service';
 import { ValidateEmail } from '../../validations/email-validator';
 import { ValidatePassword } from '../../validations/password-validator';
-import { useNavigate } from 'react-router-dom';
 import { LocalStorageHelper } from '../../helper/local-storage';
 
 export function Login() {
@@ -77,36 +67,33 @@ export function Login() {
       setOpenToast(true);
     }
   }
-
   return (
     <LoginSection>
-      <Dialog.Root open={openRegister} onOpenChange={setOpenRegister}>
-        <LoginForm onSubmit={handleSubmit}>
-          <FormTitle>Login</FormTitle>
-          <FormControls>
-            <label htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" onChange={handleChange} />
-          </FormControls>
+      <LoginForm onSubmit={handleSubmit}>
+        <FormTitle>Login</FormTitle>
+        <FormControls>
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email" onChange={handleChange} />
+        </FormControls>
 
-          <FormControls>
-            <label htmlFor="password">Senha</label>
-            <input type="password" name="password" id="password" onChange={handleChange} />
-          </FormControls>
+        <FormControls>
+          <label htmlFor="password">Senha</label>
+          <input type="password" name="password" id="password" onChange={handleChange} />
+        </FormControls>
 
-          <SubmitButton type="submit">Entrar</SubmitButton>
-          <Register>
-            <span>Não tem uma conta?</span>
-            <DialogTrigger>Registre-se</DialogTrigger>
-          </Register>
-        </LoginForm>
-        <Dialog.Portal>
-          <DialogOverlay>
-            <DialogContent>
-              <RegisterUserForm setOpenRegister={setOpenRegister} />
-            </DialogContent>
-          </DialogOverlay>
-        </Dialog.Portal>
-      </Dialog.Root>
+        <SubmitButton type="submit">Entrar</SubmitButton>
+        <Register>
+          <span>Não tem uma conta?</span>
+          <button type="button" onClick={() => setOpenRegister(true)}>
+            Registre-se
+          </button>
+        </Register>
+      </LoginForm>
+
+      <RadixDialog open={openRegister} onOpenChange={setOpenRegister}>
+        <RegisterUserForm setOpenRegister={setOpenRegister} />
+      </RadixDialog>
+
       <ToastMessage
         openToast={openToast}
         setOpenToast={setOpenToast}

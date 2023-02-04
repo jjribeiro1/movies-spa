@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import * as Dialog from '@radix-ui/react-dialog';
 
 export const LoginSection = styled.section`
   display: flex;
@@ -100,37 +99,18 @@ export const Register = styled.div`
     display: flex;
     gap: 1rem;
     color: ${theme.colors.c2};
-  `}
-  @media screen and (width < 425px) {
-    font-size: 0.8rem;
-  }
-`;
 
-export const DialogTrigger = styled(Dialog.Trigger)`
-  ${({ theme }) => css`
-    background-color: inherit;
-    color: ${theme.colors.c5};
-    border-style: none;
-    :hover {
-      cursor: pointer;
+    @media screen and (width < 425px) {
+      font-size: 0.8rem;
+    }
+
+    button {
+      background-color: inherit;
+      color: ${theme.colors.c5};
+      border-style: none;
+      :hover {
+        cursor: pointer;
+      }
     }
   `}
-`;
-
-export const DialogOverlay = styled(Dialog.Overlay)`
-  ${({ theme }) => css`
-    inset: 0;
-    position: absolute;
-    background-color: ${theme.colors.lightBg};
-    width: 100%;
-    height: 100%;
-  `}
-`;
-
-export const DialogContent = styled(Dialog.Content)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 `;

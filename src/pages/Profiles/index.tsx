@@ -5,7 +5,7 @@ import { UserService } from '../../services/user-service';
 import { Profile } from '../../types/profile-service-types';
 import { NewProfile, ProfileList, ProfilesSection } from './style';
 import * as Dialog from '@radix-ui/react-dialog';
-import { DialogContent, DialogOverlay } from '../Login/style';
+import { DialogContent, DialogOverlay } from '../../components/radix-dialog/style';
 import { CreateProfile } from '../../components/create-profile';
 
 export function Profiles() {

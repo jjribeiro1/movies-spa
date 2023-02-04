@@ -7,6 +7,7 @@ export const colors = {
   c6: '#999c9f',
   c7: '#fbc500',
   c8: '#10161d',
+  m1: '#00002d80',
 
   logoTitle: '#e2b217',
   btnOne: '#fbcb1a',

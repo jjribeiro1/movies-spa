@@ -1,28 +1,33 @@
 import styled, { css } from 'styled-components';
-import * as Dialog from '@radix-ui/react-dialog';
 
 export const ProfilesSection = styled.section`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
     align-items: center;
     justify-content: center;
+    max-width: 1440px;
+    height: 100%;
+    margin: 0 auto;
     background-color: ${theme.colors.pageBg};
   `}
 `;
 
-export const ProfileList = styled.div`
+export const ProfileList = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  width: 80%;
-  height: 40%;
+  padding: 3rem 5rem;
+  gap: 15px;
+  width: 100%;
+  list-style: none;
+
+  @media screen and (width < 801px) {
+    padding: 1.5rem 2.5rem;
+  }
 `;
 
-export const NewProfile = styled(Dialog.Trigger)`
+export const NewProfile = styled.button`
   ${({ theme }) => css`
     display: flex;
     justify-content: center;

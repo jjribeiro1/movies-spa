@@ -1,40 +1,46 @@
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-export const Card = styled.div`
+export const Card = styled.li`
   ${({ theme }) => css`
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    border: none;
     align-items: center;
-    width: 20%;
-    border-radius: 5px;
-    min-height: 100px;
-    max-height: 200px;
-    min-width: 130px;
+    flex: 1;
     cursor: pointer;
     transition: 0.5s;
 
-    :hover {
-      transform: scale(1.15);
-    }
-    img {
-      margin-top: 15px;
-      max-width: 100%;
-      height: auto;
-      display: block;
+    a {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+      height: 80%;
+      width: 85%;
+      text-decoration: none;
+      @media screen and (width <= 600px) {
+        gap: 0.3rem;
+      }
+
+      img {
+        border-radius: 5px;
+      }
+
+      span {
+        width: max-content;
+        font-size: 1.2rem;
+        color: ${theme.colors.c4};
+        @media screen and (width <= 800px) {
+          font-size: 1rem;
+        }
+        @media screen and (width <= 600px) {
+          font-size: 0.6rem;
+        }
+      }
     }
 
-    h2 {
-      margin-top: 15px;
-      font-size: 1.3rem;
-      color: ${theme.colors.c4};
+    :hover {
+      transform: scale(1.1);
     }
   `}
-`;
-
-export const RouterDomLink = styled(Link)`
-  display: flex;
-  flex-direction: column;
 `;

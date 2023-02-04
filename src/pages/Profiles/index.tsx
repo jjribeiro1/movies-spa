@@ -7,6 +7,7 @@ import { NewProfile, ProfileList, ProfilesSection } from './style';
 import * as Dialog from '@radix-ui/react-dialog';
 import { DialogContent, DialogOverlay } from '../../components/radix-dialog/style';
 import { CreateProfile } from '../../components/create-profile';
+import { RadixDialog } from '../../components/radix-dialog';
 
 export function Profiles() {
   const [userProfiles, setUserProfiles] = useState<Profile[]>([]);
@@ -31,20 +32,15 @@ export function Profiles() {
             <ProfileCard key={profile.id} profile={profile} />
           ))}
         </ProfileList>
-        <Dialog.Root open={openCreateModal} onOpenChange={setOpenCreateModal}>
-          <NewProfile>Criar novo perfil</NewProfile>
-          <Dialog.Portal>
-            <DialogOverlay>
-              <DialogContent>
-                <CreateProfile
-                  setOpenCreateModal={setOpenCreateModal}
-                  control={control}
-                  setControl={setControl}
-                />
-              </DialogContent>
-            </DialogOverlay>
-          </Dialog.Portal>
-        </Dialog.Root>
+
+        <NewProfile onClick={() => setOpenCreateModal(true)}>Criar novo perfil</NewProfile>
+        <RadixDialog open={openCreateModal} onOpenChange={setOpenCreateModal}>
+          <CreateProfile
+            setOpenCreateModal={setOpenCreateModal}
+            control={control}
+            setControl={setControl}
+          />
+        </RadixDialog>
       </ProfilesSection>
     </>
   );

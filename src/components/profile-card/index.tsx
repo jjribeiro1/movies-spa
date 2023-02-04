@@ -1,4 +1,5 @@
-import { Card, RouterDomLink } from './style';
+import { Link } from 'react-router-dom';
+import { Card } from './style';
 import { Profile } from '../../types/profile-service-types';
 
 interface ProfileCardProps {
@@ -8,10 +9,10 @@ interface ProfileCardProps {
 export function ProfileCard({ profile }: ProfileCardProps) {
   return (
     <Card>
-      <RouterDomLink to={'/home'}>
-      <img src={profile.imageUrl} alt="imagem do perfil" />
-      </RouterDomLink>
-      <h2>{profile.name}</h2>
+      <Link to={'/home'}>
+        <img src={profile.imageUrl} alt="imagem do perfil" />
+        <span>{profile.name}</span>
+      </Link>
     </Card>
   );
-}
+}6

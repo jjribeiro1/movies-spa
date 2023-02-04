@@ -27,15 +27,17 @@ export const ProfileList = styled.ul`
   }
 `;
 
+export const ProfileActions = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 10px;
+`;
+
 export const NewProfile = styled.button`
   ${({ theme }) => css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.3rem;
-    margin-top: 4.5rem;
-    width: 10rem;
-    height: 2.5rem;
+    padding: 0.5rem 2rem;
+    margin-top: 3rem;
     border-radius: 6px;
     font-size: 1rem;
     font-weight: 400;
@@ -45,5 +47,17 @@ export const NewProfile = styled.button`
     :hover {
       cursor: pointer;
     }
+
+    @media screen and (width <= 800px) {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    @media screen and (width <= 600px) {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.6rem;
+    }
   `}
 `;
+
+export const ConfigProfiles = styled(NewProfile)``;

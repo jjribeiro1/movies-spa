@@ -3,15 +3,14 @@ import { ProfileCard } from '../../components/profile-card';
 import { LocalStorageHelper } from '../../helper/local-storage';
 import { UserService } from '../../services/user-service';
 import { Profile } from '../../types/profile-service-types';
-import { NewProfile, ProfileList, ProfilesSection } from './style';
-import * as Dialog from '@radix-ui/react-dialog';
-import { DialogContent, DialogOverlay } from '../../components/radix-dialog/style';
+import { ConfigProfiles, NewProfile, ProfileActions, ProfileList, ProfilesSection } from './style';
 import { CreateProfile } from '../../components/create-profile';
 import { RadixDialog } from '../../components/radix-dialog';
 
 export function Profiles() {
   const [userProfiles, setUserProfiles] = useState<Profile[]>([]);
   const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [isEditingProfile, setIsEditingProfile] = useState<boolean>(false);
   const [control, setControl] = useState(false);
 
   async function getProfiles() {
@@ -29,11 +28,17 @@ export function Profiles() {
       <ProfilesSection>
         <ProfileList>
           {userProfiles.map((profile) => (
-            <ProfileCard key={profile.id} profile={profile} />
+            <ProfileCard key={profile.id} isEditingProfile={isEditingProfile} profile={profile} />
           ))}
         </ProfileList>
 
-        <NewProfile onClick={() => setOpenCreateModal(true)}>Criar novo perfil</NewProfile>
+        <ProfileActions>
+          <NewProfile onClick={() => setOpenCreateModal(true)}>Criar novo perfil</NewProfile>
+          <ConfigProfiles onClick={() => setIsEditingProfile(!isEditingProfile)}>
+            Gerenciar Perfis
+          </ConfigProfiles>
+        </ProfileActions>
+
         <RadixDialog open={openCreateModal} onOpenChange={setOpenCreateModal}>
           <CreateProfile
             setOpenCreateModal={setOpenCreateModal}

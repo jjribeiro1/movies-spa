@@ -1,5 +1,4 @@
 import { FormControls, FormHeader, FormTitle, RegisterForm, SubmitButton } from './style';
-import * as Dialog from '@radix-ui/react-dialog';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { ValidateEmail } from '../../validations/email-validator';
 import { ValidatePassword } from '../../validations/password-validator';
@@ -88,7 +87,9 @@ export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
       <RegisterForm onSubmit={handleSubmit}>
         <FormHeader>
           <FormTitle>Cadastre-se</FormTitle>
-          <Dialog.Close>X</Dialog.Close>
+          <button type="submit" onClick={() => setOpenRegister(false)}>
+            X
+          </button>
         </FormHeader>
 
         <FormControls>

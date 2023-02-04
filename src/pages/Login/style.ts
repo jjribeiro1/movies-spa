@@ -30,8 +30,6 @@ export const LoginForm = styled.form`
 
   @media screen and (width < 425px) {
     width: 300px;
-    height: 360px;
-    padding: 1.2rem;
   }
 `;
 
@@ -83,7 +81,7 @@ export const SubmitButton = styled.button`
     margin: 1rem 0;
     border-radius: 5px;
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 500;
     color: ${theme.colors.c3};
     background-color: ${theme.colors.btnOne};
     border-style: none;

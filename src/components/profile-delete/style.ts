@@ -1,4 +1,4 @@
-import { Title, Description, Cancel, Action } from '@radix-ui/react-alert-dialog';
+import { Title, Description, Cancel } from '@radix-ui/react-alert-dialog';
 import styled, { css } from 'styled-components';
 
 export const ContentWrapper = styled.div`
@@ -57,7 +57,7 @@ export const AlertCancel = styled(Cancel)`
   `}
 `;
 
-export const AlertAction = styled(Action)`
+export const AlertAction = styled.button`
   ${({ theme }) => css`
     width: fit-content;
     padding: 0.2rem 0.3rem;

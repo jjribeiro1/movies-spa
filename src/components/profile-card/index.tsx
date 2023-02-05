@@ -53,7 +53,12 @@ export function ProfileCard({ control, setControl, isEditingProfile, profile }: 
       </RadixDialog>
 
       <RadixAlert open={openDeleteAlert} onOpenChange={setOpenDeleteAlert}>
-        <DeleteProfile profileId={profile.id} control={control} setControl={setControl} />
+        <DeleteProfile
+          profileId={profile.id}
+          control={control}
+          setControl={setControl}
+          setOpenDeleteAlert={setOpenDeleteAlert}
+        />
       </RadixAlert>
     </>
   );

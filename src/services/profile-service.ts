@@ -15,8 +15,14 @@ export function ProfileService() {
     return request.data;
   }
 
+  async function remove(id: string) {
+    const request = await api.delete(`/profile/${id}`);
+    return request.data;
+  }
+
   return {
     create,
     update,
+    remove,
   };
 }

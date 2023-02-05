@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import * as Dialog from '@radix-ui/react-dialog';
+import { Overlay, Content } from '@radix-ui/react-dialog';
 
-export const DialogOverlay = styled(Dialog.Overlay)`
+export const DialogOverlay = styled(Overlay)`
   ${({ theme }) => css`
     inset: 0;
     z-index: 999;
@@ -10,7 +10,7 @@ export const DialogOverlay = styled(Dialog.Overlay)`
   `}
 `;
 
-export const DialogContent = styled(Dialog.Content)`
+export const DialogContent = styled(Content)`
   position: fixed;
   top: 50%;
   left: 50%;

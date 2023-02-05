@@ -4,6 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 export const DialogOverlay = styled(Dialog.Overlay)`
   ${({ theme }) => css`
     inset: 0;
+    z-index: 999;
     position: fixed;
     background-color: ${theme.colors.m1};
   `}

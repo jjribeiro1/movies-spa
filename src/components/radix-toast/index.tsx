@@ -1,4 +1,4 @@
-import * as Toast from '@radix-ui/react-toast';
+import { Provider } from '@radix-ui/react-toast';
 import { ToastClose, ToastDescription, ToastRoot, ToastTitle, ToastViewport } from './style';
 
 type ToastMessageProps = {
@@ -10,7 +10,7 @@ type ToastMessageProps = {
 
 export function ToastMessage({ openToast, setOpenToast, title, messages }: ToastMessageProps) {
   return (
-    <Toast.Provider duration={5000}>
+    <Provider duration={5000}>
       <ToastRoot open={openToast} onOpenChange={setOpenToast} defaultOpen={false}>
         <ToastTitle>{title}</ToastTitle>
         <ToastClose>X</ToastClose>
@@ -22,6 +22,6 @@ export function ToastMessage({ openToast, setOpenToast, title, messages }: Toast
       </ToastRoot>
 
       <ToastViewport />
-    </Toast.Provider>
+    </Provider>
   );
 }

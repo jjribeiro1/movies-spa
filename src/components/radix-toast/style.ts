@@ -1,7 +1,7 @@
-import * as Toast from '@radix-ui/react-toast';
+import { Viewport, Root, Title, Close, Description } from '@radix-ui/react-toast';
 import styled, { css } from 'styled-components';
 
-export const ToastViewport = styled(Toast.Viewport)`
+export const ToastViewport = styled(Viewport)`
   position: absolute;
   top: 5%;
   left: 50%;
@@ -11,7 +11,7 @@ export const ToastViewport = styled(Toast.Viewport)`
   list-style: none;
 `;
 
-export const ToastRoot = styled(Toast.Root)`
+export const ToastRoot = styled(Root)`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@ export const ToastRoot = styled(Toast.Root)`
   `}
 `;
 
-export const ToastTitle = styled(Toast.Title)`
+export const ToastTitle = styled(Title)`
   ${({ theme }) => css`
     display: flex;
     flex-wrap: wrap;
@@ -33,7 +33,7 @@ export const ToastTitle = styled(Toast.Title)`
   `}
 `;
 
-export const ToastClose = styled(Toast.Close)`
+export const ToastClose = styled(Close)`
   position: absolute;
   top: 16px;
   right: 17px;
@@ -47,7 +47,7 @@ export const ToastClose = styled(Toast.Close)`
   }
 `;
 
-export const ToastDescription = styled(Toast.Description)`
+export const ToastDescription = styled(Description)`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;

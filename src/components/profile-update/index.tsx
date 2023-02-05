@@ -32,8 +32,12 @@ export function UpdateProfile({
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const error = [];
-    const { name } = inputValues;
-    const nameIsValid = name.length > 3 ? true : false;
+    const data = {
+      name: inputValues.name === '' ? profile.name : inputValues.name,
+      imageUrl: inputValues.imageUrl === '' ? profile.imageUrl : inputValues.imageUrl
+    };
+
+    const nameIsValid = data.name.length > 3 ? true : false;
     if (!nameIsValid) {
       error.push('Nome deve ter pelo menos 3 caracterers');
     }
@@ -42,13 +46,11 @@ export function UpdateProfile({
       setOpenToast(true);
       return;
     }
-    updateProfile();
+    updateProfile(data.name, data.imageUrl);
   }
 
-  async function updateProfile() {
+  async function updateProfile(name: string, imageUrl: string) {
     try {
-      const name = inputValues.name === '' ? profile.name : inputValues.name;
-      const imageUrl = inputValues.imageUrl === '' ? profile.imageUrl : inputValues.imageUrl;
       await ProfileService().update({ id: profile.id, name, imageUrl });
       setControl(!control);
       setOpenUpdateModal(false);

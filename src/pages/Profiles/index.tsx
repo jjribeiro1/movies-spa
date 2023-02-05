@@ -39,7 +39,9 @@ export function Profiles() {
         </ProfileList>
 
         <ProfileActions>
-          <NewProfile onClick={() => setOpenCreateModal(true)}>Criar novo perfil</NewProfile>
+          <NewProfile disabled={userProfiles.length >= 4} onClick={() => setOpenCreateModal(true)}>
+            Criar novo perfil
+          </NewProfile>
           <ConfigProfiles onClick={() => setIsEditingProfile(!isEditingProfile)}>
             Gerenciar Perfis
           </ConfigProfiles>

@@ -34,7 +34,38 @@ export const ProfileActions = styled.div`
   gap: 10px;
 `;
 
-export const NewProfile = styled.button`
+type NewProfileProps = {
+  disabled: boolean;
+};
+
+export const NewProfile = styled.button<NewProfileProps>`
+  ${({ theme }) => css`
+    padding: 0.5rem 2rem;
+    margin-top: 3rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: ${theme.colors.c1};
+    background-color: ${theme.colors.lightBg3};
+    border-style: none;
+    :hover {
+      cursor: pointer;
+    }
+
+    @media screen and (width <= 800px) {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    @media screen and (width <= 600px) {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.6rem;
+    }
+  `};
+  opacity: ${(props) => (props.disabled ? 0.2 : 1)};
+`;
+
+export const ConfigProfiles = styled.button`
   ${({ theme }) => css`
     padding: 0.5rem 2rem;
     margin-top: 3rem;
@@ -59,5 +90,3 @@ export const NewProfile = styled.button`
     }
   `}
 `;
-
-export const ConfigProfiles = styled(NewProfile)``;

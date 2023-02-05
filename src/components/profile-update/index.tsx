@@ -1,15 +1,22 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { ProfileService } from '../../services/profile-service';
-import { FormProfile } from '../form-profile';
+import { Profile } from '../../types/profile-service-types';
+import { FormProfile } from '../profile-form';
 import { ToastMessage } from '../toast';
 
-type CreateProfileProps = {
-  setOpenCreateModal: React.Dispatch<React.SetStateAction<boolean>>;
+type UpdateProfileProps = {
+  profile: Profile;
+  setOpenUpdateModal: React.Dispatch<React.SetStateAction<boolean>>;
   control: boolean;
   setControl: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export function CreateProfile({ setOpenCreateModal, control, setControl }: CreateProfileProps) {
+export function UpdateProfile({
+  profile,
+  setOpenUpdateModal,
+  control,
+  setControl,
+}: UpdateProfileProps) {
   const [inputValues, setInputValues] = useState({
     name: '',
     imageUrl: '',
@@ -35,33 +42,39 @@ export function CreateProfile({ setOpenCreateModal, control, setControl }: Creat
       setOpenToast(true);
       return;
     }
-
-    registerProfile();
+    updateProfile();
   }
 
-  async function registerProfile() {
+  async function updateProfile() {
     try {
-      await ProfileService().create(inputValues);
+      const name = inputValues.name === '' ? profile.name : inputValues.name;
+      const imageUrl = inputValues.imageUrl === '' ? profile.imageUrl : inputValues.imageUrl;
+      await ProfileService().update({ id: profile.id, name, imageUrl });
       setControl(!control);
-      setOpenCreateModal(false);
+      setOpenUpdateModal(false);
     } catch (error: any) {
       if (error.response.data.message[0] === 'name must be longer than or equal to 3 characters') {
         setErrors(['Nome deve ter pelo menos 3 caracterers']);
         setOpenToast(true);
         return;
       }
-      setErrors(['Erro inesperado ao criar perfil']);
+      setErrors(['Erro inesperado ao atualizar perfil']);
       setOpenToast(true);
     }
   }
 
   return (
     <>
-      <FormProfile title="Novo Perfil" handleChange={handleChange} handleSubmit={handleSubmit} />
+      <FormProfile
+        title="Editar Perfil"
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        profile={profile}
+      />
       <ToastMessage
         openToast={openToast}
         setOpenToast={setOpenToast}
-        title="Erro ao criar perfil"
+        title="Erro ao atualizar perfil"
         messages={errors}
       />
     </>

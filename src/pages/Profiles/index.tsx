@@ -4,7 +4,7 @@ import { LocalStorageHelper } from '../../helper/local-storage';
 import { UserService } from '../../services/user-service';
 import { Profile } from '../../types/profile-service-types';
 import { ConfigProfiles, NewProfile, ProfileActions, ProfileList, ProfilesSection } from './style';
-import { CreateProfile } from '../../components/create-profile';
+import { CreateProfile } from '../../components/profile-create';
 import { RadixDialog } from '../../components/radix-dialog';
 
 export function Profiles() {

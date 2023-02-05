@@ -4,9 +4,9 @@ import { Profile } from '../../types/profile-service-types';
 import { useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import { RadixDialog } from '../radix-dialog';
-import { UpdateProfile } from '../update-profile';
+import { UpdateProfile } from '../profile-update';
 import { RadixAlert } from '../radix-alert';
-import { DeleteProfile } from '../delete-profile';
+import { DeleteProfile } from '../profile-delete';
 
 interface ProfileCardProps {
   control: boolean;

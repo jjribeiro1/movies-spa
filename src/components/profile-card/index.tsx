@@ -5,6 +5,8 @@ import { useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import { RadixDialog } from '../radix-dialog';
 import { UpdateProfile } from '../update-profile';
+import { RadixAlert } from '../radix-alert';
+import { DeleteProfile } from '../delete-profile';
 
 interface ProfileCardProps {
   control: boolean;
@@ -16,6 +18,7 @@ interface ProfileCardProps {
 export function ProfileCard({ control, setControl, isEditingProfile, profile }: ProfileCardProps) {
   const [openPopover, setOpenPopover] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
 
   return (
     <>
@@ -25,7 +28,7 @@ export function ProfileCard({ control, setControl, isEditingProfile, profile }: 
             <Popover.Portal>
               <PopoverContent align="start" alignOffset={20} side="right" sideOffset={-80}>
                 <button onClick={() => setOpenUpdateModal(true)}>Editar</button>
-                <button>Deletar</button>
+                <button onClick={() => setOpenDeleteAlert(true)}>Deletar</button>
               </PopoverContent>
             </Popover.Portal>
             <SettingIcon
@@ -48,6 +51,10 @@ export function ProfileCard({ control, setControl, isEditingProfile, profile }: 
           setControl={setControl}
         />
       </RadixDialog>
+
+      <RadixAlert open={openDeleteAlert} onOpenChange={setOpenDeleteAlert}>
+        <DeleteProfile profileId={profile.id} control={control} setControl={setControl} />
+      </RadixAlert>
     </>
   );
 }

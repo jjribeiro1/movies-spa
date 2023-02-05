@@ -28,7 +28,13 @@ export function Profiles() {
       <ProfilesSection>
         <ProfileList>
           {userProfiles.map((profile) => (
-            <ProfileCard key={profile.id} isEditingProfile={isEditingProfile} profile={profile} />
+            <ProfileCard
+              key={profile.id}
+              isEditingProfile={isEditingProfile}
+              profile={profile}
+              control={control}
+              setControl={setControl}
+            />
           ))}
         </ProfileList>
 

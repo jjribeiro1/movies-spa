@@ -1,6 +1,6 @@
 import { api } from '../api';
 import { LocalStorageHelper } from '../helper/local-storage';
-import { CreateProfileInput } from '../types/profile-service-types';
+import { CreateProfileInput, UpdateProfileInput } from '../types/profile-service-types';
 
 export function ProfileService() {
   const userId = LocalStorageHelper.getItem('logged_user').id;
@@ -10,7 +10,13 @@ export function ProfileService() {
     return request.data;
   }
 
+  async function update({ id, name, imageUrl }: UpdateProfileInput) {
+    const request = await api.patch(`/profile/${id}`, { name, imageUrl });
+    return request.data;
+  }
+
   return {
     create,
+    update,
   };
 }

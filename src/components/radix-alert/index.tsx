@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Alert from '@radix-ui/react-alert-dialog';
+import { Root, Portal } from '@radix-ui/react-alert-dialog';
 import { AlertContent, AlertOverlay } from './styles';
 
 type RadixAlertProps = {
@@ -10,12 +10,12 @@ type RadixAlertProps = {
 
 export function RadixAlert({ open, onOpenChange, children }: RadixAlertProps) {
   return (
-    <Alert.Root open={open} onOpenChange={onOpenChange}>
-      <Alert.Portal>
+    <Root open={open} onOpenChange={onOpenChange}>
+      <Portal>
         <AlertOverlay>
           <AlertContent>{children}</AlertContent>
         </AlertOverlay>
-      </Alert.Portal>
-    </Alert.Root>
+      </Portal>
+    </Root>
   );
 }

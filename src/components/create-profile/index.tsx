@@ -1,8 +1,7 @@
-import * as Dialog from '@radix-ui/react-dialog';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { ProfileService } from '../../services/profile-service';
+import { FormProfile } from '../form-profile';
 import { ToastMessage } from '../toast';
-import { CreateProfileForm, FormControls, FormHeader, FormTitle, SubmitButton } from './style';
 
 type CreateProfileProps = {
   setOpenCreateModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,7 +25,7 @@ export function CreateProfile({ setOpenCreateModal, control, setControl }: Creat
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const error = [];
-    const { name, imageUrl } = inputValues;
+    const { name } = inputValues;
     const nameIsValid = name.length > 3 ? true : false;
     if (!nameIsValid) {
       error.push('Nome deve ter pelo menos 3 caracterers');
@@ -42,8 +41,8 @@ export function CreateProfile({ setOpenCreateModal, control, setControl }: Creat
 
   async function registerProfile() {
     try {
-      await ProfileService().create(inputValues)
-      setControl(!control)
+      await ProfileService().create(inputValues);
+      setControl(!control);
       setOpenCreateModal(false);
     } catch (error: any) {
       if (error.response.data.message[0] === 'name must be longer than or equal to 3 characters') {
@@ -58,22 +57,7 @@ export function CreateProfile({ setOpenCreateModal, control, setControl }: Creat
 
   return (
     <>
-      <CreateProfileForm onSubmit={handleSubmit}>
-        <FormHeader>
-          <FormTitle>Novo Perfil</FormTitle>
-          <Dialog.Close>X</Dialog.Close>
-        </FormHeader>
-        <FormControls>
-          <label htmlFor="name">Nome</label>
-          <input type="text" name="name" id="name" required onChange={handleChange} />
-        </FormControls>
-
-        <FormControls>
-          <label htmlFor="imageUrl">Url da Imagem</label>
-          <input type="text" name="imageUrl" id="imageUrl" required onChange={handleChange} />
-        </FormControls>
-        <SubmitButton type="submit">Criar</SubmitButton>
-      </CreateProfileForm>
+      <FormProfile title="Novo Perfil" handleChange={handleChange} handleSubmit={handleSubmit} />
       <ToastMessage
         openToast={openToast}
         setOpenToast={setOpenToast}

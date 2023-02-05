@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { ValidateEmail } from '../../validations/email-validator';
 import { ValidatePassword } from '../../validations/password-validator';
 import { ValidateCpf } from '../../validations/cpf-validator';
-import { ToastMessage } from '../toast';
+import { ToastMessage } from '../radix-toast';
 import { UserService } from '../../services/user-service';
 
 type RegisterUserFormProps = {

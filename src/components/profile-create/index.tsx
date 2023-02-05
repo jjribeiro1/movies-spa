@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { ProfileService } from '../../services/profile-service';
 import { FormProfile } from '../profile-form';
-import { ToastMessage } from '../toast';
+import { ToastMessage } from '../radix-toast';
 
 type CreateProfileProps = {
   setOpenCreateModal: React.Dispatch<React.SetStateAction<boolean>>;

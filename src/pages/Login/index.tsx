@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SubmitButton, FormTitle, FormControls, LoginForm, LoginSection, Register } from './style';
 import { RegisterUserForm } from '../../components/register-user';
-import { ToastMessage } from '../../components/toast';
+import { ToastMessage } from '../../components/radix-toast';
 import { RadixDialog } from '../../components/radix-dialog';
 import { AuthService } from '../../services/auth-service';
 import { ValidateEmail } from '../../validations/email-validator';

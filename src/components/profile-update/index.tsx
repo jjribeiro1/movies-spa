@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { ProfileService } from '../../services/profile-service';
 import { Profile } from '../../types/profile-service-types';
 import { FormProfile } from '../profile-form';
-import { ToastMessage } from '../toast';
+import { ToastMessage } from '../radix-toast';
 
 type UpdateProfileProps = {
   profile: Profile;

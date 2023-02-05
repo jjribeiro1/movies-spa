@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ProfileService } from '../../services/profile-service';
-import { ToastMessage } from '../toast';
+import { ToastMessage } from '../radix-toast';
 import {
   AlertAction,
   AlertButtons,

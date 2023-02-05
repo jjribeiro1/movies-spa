@@ -11,9 +11,8 @@ export const DialogOverlay = styled(Dialog.Overlay)`
 `;
 
 export const DialogContent = styled(Dialog.Content)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;

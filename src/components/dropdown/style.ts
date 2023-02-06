@@ -1,16 +1,6 @@
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { DropMenuContent, DropMenuGroup, DropMenuItem } from '../radix-dropdown';
 import { MdManageAccounts } from 'react-icons/md';
 import styled, { css } from 'styled-components';
-
-export const Trigger = styled(DropdownMenu.Trigger)`
-  ${({ theme }) => css`
-    background-color: ${theme.colors.pageBg};
-    border: none;
-    :hover {
-      cursor: pointer;
-    }
-  `}
-`;
 
 export const SettingsIcon = styled(MdManageAccounts)`
   ${({ theme }) => css`
@@ -20,42 +10,33 @@ export const SettingsIcon = styled(MdManageAccounts)`
   `}
 `;
 
-export const DropdownMenuContent = styled(DropdownMenu.Content)`
+export const DropdownContent = styled(DropMenuContent)`
   ${({ theme }) => css`
-    margin-top: 0.5rem;
-    margin-right: 1rem;
     padding: 0.3rem;
-    width: 160px;
-    height: 150px;
     border-radius: 5px;
     background-color: ${theme.colors.c4};
-
-    @media (min-width: 500px) {
-      width: 210px;
-      height: 180px;
-      font-size: 1.3rem;
+    font-size: 1.2rem;
+    @media screen and (width < 1025px) {
+      font-size: 1rem;
+    }
+    @media screen and (width <= 700px) {
+      font-size: 0.8rem;
     }
   `}
 `;
 
-export const DropdownGroup = styled(DropdownMenu.DropdownMenuGroup)`
+export const DropdownGroup = styled(DropMenuGroup)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
 `;
 
-export const DropdownMenuItem = styled(DropdownMenu.DropdownMenuItem)`
+export const DropdownMenuItem = styled(DropMenuItem)`
   ${({ theme }) => css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: ${theme.colors.c3};
     :hover {
       cursor: pointer;
-    }
-    @media (min-width: 500px) {
-      font-size: 1.3rem;
     }
   `}
 `;

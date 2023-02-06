@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Dropdown } from '../dropdown';
 import { SettingsIcon } from '../dropdown/style';
+import { RadixDropdownMenu } from '../radix-dropdown';
 import {
   HamburgerIcon,
   HeaderContainer,
@@ -10,14 +11,12 @@ import {
   NavBar,
 } from './style';
 export function Header() {
-  function getIcon() {
-    return (
-      <>
-        <SettingsIcon />
-      </>
-    );
-  }
   const navigate = useNavigate();
+
+  function getIcon() {
+    return <SettingsIcon />;
+  }
+
   return (
     <HeaderContainer>
       <NavBar>
@@ -26,7 +25,9 @@ export function Header() {
           <LogoIcon />
           <LogoTitle>Just Watch</LogoTitle>
         </LogoContainer>
-        <Dropdown Icon={getIcon()} />
+        <RadixDropdownMenu iconTrigger={getIcon()}>
+          <Dropdown />
+        </RadixDropdownMenu>
       </NavBar>
     </HeaderContainer>
   );

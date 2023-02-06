@@ -2,12 +2,10 @@ import { Viewport, Root, Title, Close, Description } from '@radix-ui/react-toast
 import styled, { css } from 'styled-components';
 
 export const ToastViewport = styled(Viewport)`
-  position: absolute;
-  top: 5%;
+  position: fixed;
+  top: 10%;
   left: 50%;
-  transform: translate(-50%, 0);
-  width: 350px;
-  padding: 0.6rem;
+  transform: translate(-50%, -50%);
   list-style: none;
 `;
 
@@ -16,42 +14,39 @@ export const ToastRoot = styled(Root)`
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
-    gap: 1rem;
+    gap: 0.5rem;
     border-radius: 5px;
     background-color: ${theme.colors.toastFail};
+    color: ${theme.colors.c1};
   `}
 `;
 
 export const ToastTitle = styled(Title)`
-  ${({ theme }) => css`
-    display: flex;
-    flex-wrap: wrap;
-    width: 200px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: ${theme.colors.c1};
-  `}
+  font-size: 1rem;
+  font-weight: 600;
 `;
 
 export const ToastClose = styled(Close)`
-  position: absolute;
-  top: 16px;
-  right: 17px;
-  width: 20px;
-  height: 20px;
-  font-size: 1.1rem;
-  border-style: none;
-  font-weight: 600;
-  :hover {
-    cursor: pointer;
-  }
+  ${({ theme }) => css`
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    padding: 0.5px 4px;
+    border-style: none;
+    border-radius: 2px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background-color: ${theme.colors.c1};
+    :hover {
+      cursor: pointer;
+    }
+  `}
 `;
 
 export const ToastDescription = styled(Description)`
-  ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    color: ${theme.colors.c1};
-  `}
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.9rem;
+  font-weight: 400;
 `;

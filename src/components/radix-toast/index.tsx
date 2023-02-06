@@ -15,8 +15,8 @@ export function ToastMessage({ openToast, setOpenToast, title, messages }: Toast
         <ToastTitle>{title}</ToastTitle>
         <ToastClose>X</ToastClose>
         <ToastDescription>
-          {messages.map((message) => (
-            <p>{message}</p>
+          {messages.map((message, i) => (
+            <p key={i}>{message}</p>
           ))}
         </ToastDescription>
       </ToastRoot>

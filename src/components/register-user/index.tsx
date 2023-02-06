@@ -36,7 +36,7 @@ export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
     const cpfIsValid = ValidateCpf(cpf);
 
     if (!nameIsValid) {
-      error.push('Nome deve ter pelo menos 3 caracterers');
+      error.push('Nome deve ter pelo menos 3 caracteres');
     }
 
     if (!emailIsValid) {

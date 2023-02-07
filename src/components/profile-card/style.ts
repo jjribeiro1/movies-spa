@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { AiOutlineSetting } from 'react-icons/ai';
-import { Content, Anchor } from '@radix-ui/react-popover';
+import { Content } from '@radix-ui/react-popover';
 
 export const Card = styled.li`
   ${({ theme }) => css`

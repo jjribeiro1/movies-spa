@@ -34,11 +34,11 @@ export const ProfileActions = styled.div`
   gap: 10px;
 `;
 
-type NewProfileProps = {
+type ProfileActionsButtonProps = {
   disabled: boolean;
 };
 
-export const NewProfile = styled.button<NewProfileProps>`
+export const NewProfile = styled.button<ProfileActionsButtonProps>`
   ${({ theme }) => css`
     padding: 0.5rem 2rem;
     margin-top: 3rem;
@@ -65,7 +65,7 @@ export const NewProfile = styled.button<NewProfileProps>`
   opacity: ${(props) => (props.disabled ? 0.2 : 1)};
 `;
 
-export const ConfigProfiles = styled.button`
+export const ConfigProfiles = styled.button<ProfileActionsButtonProps>`
   ${({ theme }) => css`
     padding: 0.5rem 2rem;
     margin-top: 3rem;
@@ -89,4 +89,5 @@ export const ConfigProfiles = styled.button`
       font-size: 0.6rem;
     }
   `}
+  display: ${(props) => (props.disabled ? 'none' : 'block')};
 `;

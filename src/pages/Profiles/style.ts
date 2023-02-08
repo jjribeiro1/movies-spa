@@ -15,10 +15,10 @@ export const ProfilesSection = styled.section`
 
 export const ProfileList = styled.ul`
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 3rem 5rem;
-  gap: 15px;
+  gap: 20px;
+  padding: 3rem 4rem;
+  height: fit-content;
   width: 100%;
   list-style: none;
 
@@ -30,18 +30,21 @@ export const ProfileList = styled.ul`
 export const ProfileActions = styled.div`
   display: flex;
   align-items: center;
-  padding: 1rem;
   gap: 10px;
+  padding: 1rem;
+  margin: 3rem auto;
+  width: fit-content;
 `;
 
 type ProfileActionsButtonProps = {
   disabled: boolean;
+  isEditingProfile?: boolean;
 };
 
 export const NewProfile = styled.button<ProfileActionsButtonProps>`
   ${({ theme }) => css`
-    padding: 0.5rem 2rem;
-    margin-top: 3rem;
+    width: 10rem;
+    height: 3rem;
     border-radius: 6px;
     font-size: 1rem;
     font-weight: 400;
@@ -53,13 +56,14 @@ export const NewProfile = styled.button<ProfileActionsButtonProps>`
     }
 
     @media screen and (width <= 800px) {
-      padding: 0.5rem 1rem;
-      font-size: 0.8rem;
+      width: 8rem;
+      height: 2.5rem;
     }
 
     @media screen and (width <= 600px) {
-      padding: 0.3rem 0.8rem;
-      font-size: 0.6rem;
+      width: 7rem;
+      height: 2rem;
+      font-size: 0.8rem;
     }
   `};
   opacity: ${(props) => (props.disabled ? 0.2 : 1)};
@@ -67,27 +71,29 @@ export const NewProfile = styled.button<ProfileActionsButtonProps>`
 
 export const ConfigProfiles = styled.button<ProfileActionsButtonProps>`
   ${({ theme }) => css`
-    padding: 0.5rem 2rem;
-    margin-top: 3rem;
+    width: 10rem;
+    height: 3rem;
     border-radius: 6px;
     font-size: 1rem;
     font-weight: 400;
     color: ${theme.colors.c1};
     background-color: ${theme.colors.lightBg3};
-    border-style: none;
+    border-color: ${theme.colors.c1};
     :hover {
       cursor: pointer;
     }
 
     @media screen and (width <= 800px) {
-      padding: 0.5rem 1rem;
-      font-size: 0.8rem;
+      width: 8rem;
+      height: 2.5rem;
     }
 
     @media screen and (width <= 600px) {
-      padding: 0.3rem 0.8rem;
-      font-size: 0.6rem;
+      width: 7rem;
+      height: 2rem;
+      font-size: 0.8rem;
     }
   `}
+  border-style: ${(props) => (props.isEditingProfile ? 'solid' : 'none')};
   display: ${(props) => (props.disabled ? 'none' : 'block')};
 `;

@@ -43,7 +43,10 @@ export const FormHeader = styled.div`
       background-color: inherit;
       border-style: none;
       color: ${theme.colors.c2};
-      font-size: 1.2rem;
+      font-size: 1.5rem;
+      @media screen and (width <= 1000px) {
+        font-size: 1.2rem;
+      }
 
       :hover {
         cursor: pointer;
@@ -55,11 +58,11 @@ export const FormHeader = styled.div`
 export const FormTitle = styled.h2`
   ${({ theme }) => css`
     font-weight: 600;
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: ${theme.colors.c1};
 
-    @media screen and (width <= 768px) {
-      font-size: 1.2;
+    @media screen and (width <= 1000px) {
+      font-size: 1.6rem;
     }
   `}
 `;
@@ -73,22 +76,27 @@ export const FormControls = styled.div`
     margin: 1rem 0rem;
 
     label {
-      font-size: 1.3rem;
+      font-size: 1.8rem;
       font-weight: 600;
       color: ${theme.colors.c4};
 
-      @media screen and (width < 768px) {
-        font-size: 1rem;
+      @media screen and (width <= 1000px) {
+        font-size: 1.2rem;
       }
     }
 
     input {
       padding: 0.6rem;
       width: 100%;
-      height: 1.8rem;
-      font-size: 1.2rem;
+      height: 2rem;
+      font-size: 1.6rem;
       border-radius: 5px;
       background-color: ${theme.colors.inputBg};
+
+      @media screen and (width <= 1000px) {
+        height: 1.8rem;
+        font-size: 1.2rem;
+      }
     }
   `}
 `;
@@ -99,7 +107,7 @@ export const SubmitButton = styled.button`
     padding: 0.2rem 1rem;
     margin-top: 1.3rem;
     border-radius: 5px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 500;
     color: ${theme.colors.c3};
     background-color: ${theme.colors.btnOne};

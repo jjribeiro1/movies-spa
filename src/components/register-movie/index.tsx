@@ -4,7 +4,6 @@ import { CreateMovieInput } from '../../types/movie-service-types';
 import {
   FormControls,
   FormHeader,
-  FormTitle,
   RegisterForm,
   SelectControls,
   SelectGenre,

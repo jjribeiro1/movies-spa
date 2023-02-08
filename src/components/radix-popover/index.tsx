@@ -1,4 +1,4 @@
-import { Root, Portal, Anchor, Content } from '@radix-ui/react-popover';
+import { Root, Portal, Content } from '@radix-ui/react-popover';
 
 type RadixPopoverProps = {
   openPopover: boolean;

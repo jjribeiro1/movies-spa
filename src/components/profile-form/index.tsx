@@ -1,5 +1,5 @@
 import { FormContainer, FormHeader, FormTitle, FormControls, SubmitButton } from './style';
-import * as Dialog from '@radix-ui/react-dialog';
+import { Close } from '@radix-ui/react-dialog';
 import { ChangeEvent, FormEvent } from 'react';
 import { Profile } from '../../types/profile-service-types';
 
@@ -14,7 +14,7 @@ export function FormProfile({ title, handleChange, handleSubmit, profile }: Form
     <FormContainer onSubmit={handleSubmit}>
       <FormHeader>
         <FormTitle>{title}</FormTitle>
-        <Dialog.Close>X</Dialog.Close>
+        <Close>X</Close>
       </FormHeader>
       <FormControls>
         <label htmlFor="name">Nome</label>

@@ -1,6 +1,7 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { Header } from '../../components/header';
 import { RadixDialog } from '../../components/radix-dialog';
+import { ToastMessage } from '../../components/radix-toast';
 import { GenreService } from '../../services/genre-service';
 import { CreateGenreInput, Genre } from '../../types/genre-service-types';
 import {
@@ -19,6 +20,8 @@ export function ManageGenres() {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [genreToEdit, setGenreToEdit] = useState('');
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [openToast, setOpenToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string[]>([]);
   const [control, setControl] = useState(false);
   const [inputValue, setInputValue] = useState<CreateGenreInput>({
     name: '',
@@ -38,22 +41,22 @@ export function ManageGenres() {
       await GenreService().create(inputValue);
       setControl(!control);
       cleanInputValue();
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      setToastMessage(error.response.data.message);
+      setOpenToast(true);
     }
   }
 
   async function handleUpdateGenreSubmit(e: FormEvent<HTMLFormElement>) {
     try {
       e.preventDefault();
-      const id = genreToEdit;
-      const data = inputValue.name;
-      await GenreService().update(id, data);
-      setControl(!control);
-      cleanInputValue();
       setOpenEditModal(false);
-    } catch (error) {
-      console.log(error);
+      cleanInputValue();
+      await GenreService().update(genreToEdit, inputValue.name);
+      setControl(!control);
+    } catch (error: any) {
+      setToastMessage(error.response.data.message);
+      setOpenToast(true);
     }
   }
 
@@ -61,8 +64,9 @@ export function ManageGenres() {
     try {
       await GenreService().remove(id);
       setControl(!control);
-    } catch (e: any) {
-      console.log(e);
+    } catch (error: any) {
+      setToastMessage(['Erro inesperado ao deletar um gênero']);
+      setOpenToast(true);
     }
   }
 
@@ -132,6 +136,13 @@ export function ManageGenres() {
           <button type="submit">Editar</button>
         </GenreForm>
       </RadixDialog>
+
+      <ToastMessage
+        openToast={openToast}
+        setOpenToast={setOpenToast}
+        title="Erro"
+        messages={toastMessage}
+      />
     </>
   );
 }

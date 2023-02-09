@@ -17,9 +17,15 @@ export function GenreService() {
     return request.data;
   }
 
+  async function remove(id: string) {
+    const request = await api.delete(`/genre/${id}`);
+    return request.data;
+  }
+
   return {
     create,
     getAll,
     update,
+    remove,
   };
 }

@@ -16,13 +16,13 @@ import {
 } from './style';
 
 export function ManageGenres() {
+  const [genres, setGenres] = useState<Genre[]>([]);
+  const [genreToEdit, setGenreToEdit] = useState('');
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [control, setControl] = useState(false);
   const [inputValue, setInputValue] = useState<CreateGenreInput>({
     name: '',
   });
-  const [openEditModal, setOpenEditModal] = useState(false);
-  const [genreToEdit, setGenreToEdit] = useState('');
-  const [genres, setGenres] = useState<Genre[]>([]);
 
   async function getGenres() {
     try {
@@ -54,6 +54,15 @@ export function ManageGenres() {
       setOpenEditModal(false);
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async function handleDeleteGenre(id: string) {
+    try {
+      await GenreService().remove(id);
+      setControl(!control);
+    } catch (e: any) {
+      console.log(e);
     }
   }
 
@@ -97,7 +106,9 @@ export function ManageGenres() {
                 >
                   editar
                 </EditButton>
-                <DeleteButton type="button">deletar</DeleteButton>
+                <DeleteButton type="button" onClick={() => handleDeleteGenre(genre.id)}>
+                  deletar
+                </DeleteButton>
               </Actions>
             </GenreItem>
           ))}

@@ -12,8 +12,14 @@ export function GenreService() {
     return request.data;
   }
 
+  async function update(id: string, name: string) {
+    const request = await api.patch<Genre[]>(`/genre/${id}`, { name });
+    return request.data;
+  }
+
   return {
     create,
     getAll,
+    update,
   };
 }

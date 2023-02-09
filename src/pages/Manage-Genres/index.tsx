@@ -1,24 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { Header } from '../../components/header';
+import { RadixDialog } from '../../components/radix-dialog';
 import { GenreService } from '../../services/genre-service';
 import { CreateGenreInput, Genre } from '../../types/genre-service-types';
 import {
-  CreateGenreButton,
   CreateGenreContainer,
-  GenreInput,
   GenreItem,
   GenreList,
   ManageSection,
-  Title,
+  GenreListTitle,
+  Actions,
+  EditButton,
+  DeleteButton,
+  GenreForm,
 } from './style';
 
 export function ManageGenres() {
-  const nameInputRef = useRef<HTMLInputElement>(null);
+  const [control, setControl] = useState(false);
   const [inputValue, setInputValue] = useState<CreateGenreInput>({
     name: '',
   });
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [genreToEdit, setGenreToEdit] = useState('');
   const [genres, setGenres] = useState<Genre[]>([]);
-  const [control, setControl] = useState(false);
 
   async function getGenres() {
     try {
@@ -29,20 +33,32 @@ export function ManageGenres() {
     }
   }
 
-  async function handleSubmit() {
+  async function handleCreateGenreSubmit() {
     try {
       await GenreService().create(inputValue);
       setControl(!control);
-      cleanInputValue()
+      cleanInputValue();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleUpdateGenreSubmit(e: FormEvent<HTMLFormElement>) {
+    try {
+      e.preventDefault();
+      const id = genreToEdit;
+      const data = inputValue.name;
+      await GenreService().update(id, data);
+      setControl(!control);
+      cleanInputValue();
+      setOpenEditModal(false);
     } catch (error) {
       console.log(error);
     }
   }
 
   function cleanInputValue() {
-    if (nameInputRef && nameInputRef.current) {
-      nameInputRef.current.value = '';
-    }
+    setInputValue({ name: '' });
   }
 
   useEffect(() => {
@@ -50,24 +66,61 @@ export function ManageGenres() {
   }, [control]);
 
   return (
-    <ManageSection>
+    <>
       <Header />
-      <CreateGenreContainer>
-        <GenreInput
-          type="text"
-          id="name"
-          name="name"
-          onChange={(e) => setInputValue({ name: e.target.value })}
-          ref={nameInputRef}
-        />
-        <CreateGenreButton onClick={handleSubmit}>Cadastrar</CreateGenreButton>
-      </CreateGenreContainer>
-      <Title>Generos Cadastrados:</Title>
-      <GenreList>
-        {genres.map((genre) => (
-          <GenreItem key={genre.id}>{genre.name}</GenreItem>
-        ))}
-      </GenreList>
-    </ManageSection>
+
+      <ManageSection>
+        <CreateGenreContainer>
+          <h2>Adicionar novo gênero</h2>
+          <input
+            type="text"
+            onChange={(e) => setInputValue({ name: e.target.value })}
+            value={openEditModal ? '' : inputValue.name}
+          />
+          <button onClick={handleCreateGenreSubmit}>Cadastrar</button>
+        </CreateGenreContainer>
+
+        <GenreList>
+          <GenreListTitle>Gêneros Cadastrados:</GenreListTitle>
+
+          {genres.map((genre) => (
+            <GenreItem key={genre.id}>
+              <span>{genre.name}</span>
+              <Actions>
+                <EditButton
+                  type="button"
+                  onClick={() => {
+                    cleanInputValue();
+                    setOpenEditModal(true);
+                    setGenreToEdit(genre.id);
+                  }}
+                >
+                  editar
+                </EditButton>
+                <DeleteButton type="button">deletar</DeleteButton>
+              </Actions>
+            </GenreItem>
+          ))}
+        </GenreList>
+      </ManageSection>
+
+      <RadixDialog open={openEditModal} onOpenChange={setOpenEditModal}>
+        <GenreForm onSubmit={handleUpdateGenreSubmit}>
+          <span
+            onClick={() => {
+              setOpenEditModal(false);
+              cleanInputValue();
+            }}
+          >
+            x
+          </span>
+          <label>
+            Nome
+            <input type="text" onChange={(e) => setInputValue({ name: e.target.value })} />
+          </label>
+          <button type="submit">Editar</button>
+        </GenreForm>
+      </RadixDialog>
+    </>
   );
 }

@@ -8,8 +8,11 @@ import {
   StreamingItem,
   StreamingList,
   ManageSection,
-  Title,
+  StreamingListTitle,
   InputControls,
+  Actions,
+  EditButton,
+  DeleteButton,
 } from './style';
 
 export function ManageStreamings() {
@@ -44,7 +47,7 @@ export function ManageStreamings() {
       };
       await StreamingService().create(data);
       setControl(!control);
-      cleanInputValues()
+      cleanInputValues();
     } catch (error) {
       console.log(error);
     }
@@ -64,32 +67,41 @@ export function ManageStreamings() {
   }, [control]);
 
   return (
-    <ManageSection>
+    <>
       <Header />
-      <CreateStreamingContainer>
-        <InputControls>
-          <label htmlFor="name">Nome</label>
-          <input type="text" id="name" name="name" onChange={handleChange} ref={nameInputRef} />
-        </InputControls>
-        <InputControls>
-          <label htmlFor="price">Preço</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            onChange={handleChange}
-            ref={priceInputRef}
-          />
-        </InputControls>
+      <ManageSection>
+        <CreateStreamingContainer>
+          <InputControls>
+            <label htmlFor="name">Nome</label>
+            <input type="text" id="name" name="name" onChange={handleChange} ref={nameInputRef} />
+          </InputControls>
+          <InputControls>
+            <label htmlFor="price">Preço</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              onChange={handleChange}
+              ref={priceInputRef}
+            />
+          </InputControls>
+          <CreateStreamingButton onClick={handleSubmit}>Cadastrar</CreateStreamingButton>
+        </CreateStreamingContainer>
 
-        <CreateStreamingButton onClick={handleSubmit}>Cadastrar</CreateStreamingButton>
-      </CreateStreamingContainer>
-      <Title>Streaming Disponíveis:</Title>
-      <StreamingList>
-        {Streamings.map((Streaming) => (
-          <StreamingItem key={Streaming.id}>{Streaming.name}</StreamingItem>
-        ))}
-      </StreamingList>
-    </ManageSection>
+        <StreamingListTitle>Streaming Disponíveis:</StreamingListTitle>
+        <StreamingList>
+          {Streamings.map((Streaming) => (
+            <StreamingItem key={Streaming.id}>
+              <span>Nome: {Streaming.name}</span>
+              <span>Preço: {Streaming.price}</span>
+              <Actions>
+                <EditButton>editar</EditButton>
+                <DeleteButton>deletar</DeleteButton>
+              </Actions>
+            </StreamingItem>
+          ))}
+        </StreamingList>
+      </ManageSection>
+    </>
   );
 }

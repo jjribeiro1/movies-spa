@@ -1,5 +1,9 @@
 import { api } from '../api';
-import { CreateStreamingInput, Streaming } from '../types/streaming-service-types';
+import {
+  CreateStreamingInput,
+  Streaming,
+  UpdateStreamingInput,
+} from '../types/streaming-service-types';
 
 export function StreamingService() {
   async function create({ name, price }: CreateStreamingInput) {
@@ -12,8 +16,20 @@ export function StreamingService() {
     return request.data;
   }
 
+  async function update({ id, name, price }: UpdateStreamingInput) {
+    const request = await api.patch<Streaming>(`streaming/${id}`, { name, price });
+    return request.data;
+  }
+
+  async function remove(id: string) {
+    const request = await api.delete(`streaming/${id}`);
+    return request.data;
+  }
+
   return {
     create,
     getAll,
+    update,
+    remove,
   };
 }

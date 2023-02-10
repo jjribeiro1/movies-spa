@@ -1,5 +1,7 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { Header } from '../../components/header';
+import { RadixDialog } from '../../components/radix-dialog';
+import { ToastMessage } from '../../components/radix-toast';
 import { StreamingService } from '../../services/streaming-service';
 import { CreateStreamingInput, Streaming } from '../../types/streaming-service-types';
 import {
@@ -13,16 +15,21 @@ import {
   Actions,
   EditButton,
   DeleteButton,
+  StreamingForm,
+  FormControls,
+  SubmitButton,
 } from './style';
 
 export function ManageStreamings() {
-  const nameInputRef = useRef<HTMLInputElement>(null);
-  const priceInputRef = useRef<HTMLInputElement>(null);
+  const [streamings, setStreamings] = useState<Streaming[]>([]);
+  const [streamingToUpdate, setStreamingToUpdate] = useState('');
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [openToast, setOpenToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState(['']);
   const [inputValues, setInputValues] = useState({
     name: '',
     price: '',
   });
-  const [Streamings, setStreamings] = useState<Streaming[]>([]);
   const [control, setControl] = useState(false);
 
   async function getStreamings() {
@@ -39,27 +46,52 @@ export function ManageStreamings() {
     setInputValues((prevValues) => ({ ...prevValues, [name]: value }));
   }
 
-  async function handleSubmit() {
+  async function handleCreateStreamingSubmit() {
     try {
       const data = {
         name: inputValues.name,
-        price: parseInt(inputValues.price),
+        price: parseFloat(inputValues.price),
       };
+      cleanInputValues();
       await StreamingService().create(data);
       setControl(!control);
-      cleanInputValues();
-    } catch (error) {
+    } catch (error: any) {
+      setToastMessage(error.response.data.message);
+      setOpenToast(true);
       console.log(error);
     }
   }
 
+  async function handleUpdateStreamingSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    try {
+      const data = {
+        name: e.currentTarget.Name.value,
+        price: parseFloat(e.currentTarget.price.value),
+      };
+
+      await StreamingService().update({ id: streamingToUpdate, ...data });
+      setControl(!control);
+      setOpenEditModal(false);
+    } catch (error: any) {
+      setToastMessage(error.response.data.message);
+      setOpenToast(true);
+      console.log(error);
+    }
+  }
+
+  async function handleDeleteStreamingSubmit(id: string) {
+    try {
+      await StreamingService().remove(id);
+      setControl(!control);
+    } catch (error: any) {
+      setToastMessage(['Um erro inesperado aconteceu ao tentar remover o streaming']);
+      setOpenToast(true);
+    }
+  }
+
   function cleanInputValues() {
-    if (nameInputRef && nameInputRef.current) {
-      nameInputRef.current.value = '';
-    }
-    if (priceInputRef && priceInputRef.current) {
-      priceInputRef.current.value = '';
-    }
+    setInputValues({ name: '', price: '' });
   }
 
   useEffect(() => {
@@ -73,7 +105,13 @@ export function ManageStreamings() {
         <CreateStreamingContainer>
           <InputControls>
             <label htmlFor="name">Nome</label>
-            <input type="text" id="name" name="name" onChange={handleChange} ref={nameInputRef} />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              onChange={handleChange}
+              value={inputValues.name}
+            />
           </InputControls>
           <InputControls>
             <label htmlFor="price">Preço</label>
@@ -82,26 +120,60 @@ export function ManageStreamings() {
               id="price"
               name="price"
               onChange={handleChange}
-              ref={priceInputRef}
+              value={inputValues.price}
             />
           </InputControls>
-          <CreateStreamingButton onClick={handleSubmit}>Cadastrar</CreateStreamingButton>
+          <CreateStreamingButton onClick={handleCreateStreamingSubmit}>
+            Cadastrar
+          </CreateStreamingButton>
         </CreateStreamingContainer>
 
         <StreamingListTitle>Streaming Disponíveis:</StreamingListTitle>
         <StreamingList>
-          {Streamings.map((Streaming) => (
-            <StreamingItem key={Streaming.id}>
-              <span>Nome: {Streaming.name}</span>
-              <span>Preço: {Streaming.price}</span>
+          {streamings.map((streaming) => (
+            <StreamingItem key={streaming.id}>
+              <span>Nome: {streaming.name}</span>
+              <span>Preço: {streaming.price}</span>
               <Actions>
-                <EditButton>editar</EditButton>
-                <DeleteButton>deletar</DeleteButton>
+                <EditButton
+                  onClick={() => {
+                    setOpenEditModal(true);
+                    setStreamingToUpdate(streaming.id);
+                  }}
+                >
+                  editar
+                </EditButton>
+                <DeleteButton onClick={() => handleDeleteStreamingSubmit(streaming.id)}>
+                  deletar
+                </DeleteButton>
               </Actions>
             </StreamingItem>
           ))}
         </StreamingList>
       </ManageSection>
+
+      <RadixDialog open={openEditModal} onOpenChange={setOpenEditModal}>
+        <StreamingForm onSubmit={handleUpdateStreamingSubmit}>
+          <span onClick={() => setOpenEditModal(false)}>X</span>
+          <FormControls>
+            <label htmlFor="Name">Nome</label>
+            <input type="text" name="Name" id="name" />
+          </FormControls>
+
+          <FormControls>
+            <label htmlFor="price">Preço</label>
+            <input type="number" name="price" id="price" />
+          </FormControls>
+          <SubmitButton type="submit">Editar</SubmitButton>
+        </StreamingForm>
+      </RadixDialog>
+
+      <ToastMessage
+        openToast={openToast}
+        setOpenToast={setOpenToast}
+        title="Erro"
+        messages={toastMessage}
+      />
     </>
   );
 }

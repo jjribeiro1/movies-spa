@@ -181,3 +181,95 @@ export const DeleteButton = styled.button`
     cursor: pointer;
   `}
 `;
+
+export const StreamingForm = styled.form`
+  ${({ theme }) => css`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    width: 320px;
+    height: 350px;
+    border-radius: 10px;
+    background-color: ${theme.colors.lightBg3};
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: ${theme.colors.c1};
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    @media screen and (width <= 1024px) {
+      width: 320px;
+      height: 370px;
+      padding: 1.2rem;
+    }
+
+    @media screen and (width <= 768px) {
+      width: 270px;
+      height: 320px;
+      padding: 1.2rem;
+    }
+  `}
+`;
+
+export const FormControls = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    width: 80%;
+    margin: 1rem 0rem;
+
+    label {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: ${theme.colors.c4};
+
+      @media screen and (width <= 1000px) {
+        font-size: 1.2rem;
+      }
+    }
+
+    input {
+      padding: 0.6rem;
+      width: 100%;
+      height: 2rem;
+      font-size: 1.6rem;
+      border-radius: 5px;
+      background-color: ${theme.colors.inputBg};
+
+      @media screen and (width <= 1000px) {
+        height: 1.8rem;
+        font-size: 1.2rem;
+      }
+    }
+  `}
+`;
+
+export const SubmitButton = styled.button`
+  ${({ theme }) => css`
+    max-width: fit-content;
+    padding: 0.2rem 1rem;
+    margin-top: 1.3rem;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: ${theme.colors.c3};
+    background-color: ${theme.colors.btnOne};
+    border-style: none;
+    :hover {
+      cursor: pointer;
+    }
+
+    @media screen and (width <= 1024px) {
+      font-size: 1rem;
+    }
+  `}
+`;

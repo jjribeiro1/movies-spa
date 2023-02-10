@@ -2,7 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { Header } from '../../components/header';
 import { RadixDialog } from '../../components/radix-dialog';
 import { ToastMessage } from '../../components/radix-toast';
-import { MovieForm } from '../../components/register-movie';
+import { MovieForm } from '../../components/movie-form';
 import { MovieService } from '../../services/movies-service';
 import { CreateMovieInput, Movie } from '../../types/movie-service-types';
 import {

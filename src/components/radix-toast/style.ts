@@ -7,6 +7,7 @@ export const ToastViewport = styled(Viewport)`
   left: 50%;
   transform: translate(-50%, -50%);
   list-style: none;
+  z-index: 999999;
 `;
 
 export const ToastRoot = styled(Root)`

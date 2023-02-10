@@ -1,23 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import * as Dialog from '@radix-ui/react-dialog';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Header } from '../../components/header';
+import { RadixDialog } from '../../components/radix-dialog';
+import { ToastMessage } from '../../components/radix-toast';
+import { MovieForm } from '../../components/register-movie';
 import { MovieService } from '../../services/movies-service';
-import { Movie } from '../../types/movie-service-types';
+import { CreateMovieInput, Movie } from '../../types/movie-service-types';
 import {
-  DialogTrigger,
-  ManageMoviesSection,
-  DialogOverlay,
-  DialogContent,
-  Title,
+  ManageSection,
+  MovieListTitle,
   MovieItem,
   MovieList,
+  CreateMovieButton,
+  CreateMovieContainer,
+  EditButton,
+  DeleteButton,
+  Actions,
 } from './style';
-import { RegisterMovieForm } from '../../components/register-movie';
 
 export function ManageMovies() {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [movieToUpdate, setMovieToUpdate] = useState({} as Movie);
+  const [openCreateMovieModal, setOpenCreateMovieModal] = useState(false);
+  const [openEditMovieModal, setOpenEditMovieModal] = useState(false);
+  const [openToast, setOpenToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState(['']);
   const [control, setControl] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
 
   async function getMovies() {
     try {
@@ -28,9 +35,61 @@ export function ManageMovies() {
     }
   }
 
-  async function deleteMovie(id: string) {
-    await MovieService().remove(id)
-    setControl(!control)
+  async function handleCreateMovieSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    try {
+      const data: CreateMovieInput = {
+        name: e.currentTarget.Name.value,
+        imageUrl: e.currentTarget.imageUrl.value,
+        ageRating: parseInt(e.currentTarget.ageRating.value),
+        releaseYear: parseInt(e.currentTarget.releaseYear.value),
+        genreIds: [e.currentTarget.genreIds.value],
+        streamingIds: [e.currentTarget.streamingIds.value],
+      };
+      await MovieService().create(data);
+      setControl(!control);
+      setOpenCreateMovieModal(false);
+    } catch (error: any) {
+      setToastMessage(error.response.data.message);
+      setOpenToast(true);
+    }
+  }
+
+  async function handleUpdateMovieSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    try {
+      const data = {
+        name:
+          e.currentTarget.Name.value === movieToUpdate.name
+            ? undefined
+            : e.currentTarget.Name.value,
+
+        imageUrl:
+          e.currentTarget.imageUrl.value === movieToUpdate.imageUrl
+            ? undefined
+            : e.currentTarget.imageUrl.value,
+        ageRating: parseInt(e.currentTarget.ageRating.value),
+        releaseYear: parseInt(e.currentTarget.releaseYear.value),
+        genreIds: [e.currentTarget.genreIds.value],
+        streamingIds: [e.currentTarget.streamingIds.value],
+      };
+      await MovieService().update({ id: movieToUpdate.id, ...data });
+      setControl(!control);
+      setOpenEditMovieModal(false);
+    } catch (error: any) {
+      setToastMessage(error.response.data.message);
+      setOpenToast(true);
+    }
+  }
+
+  async function handleDeleteMovieSubmit(id: string) {
+    try {
+      await MovieService().remove(id);
+      setControl(!control);
+    } catch (error: any) {
+      setToastMessage(['Erro inesperado ao tentar excluir o filme']);
+      setOpenToast(true);
+    }
   }
 
   useEffect(() => {
@@ -38,30 +97,81 @@ export function ManageMovies() {
   }, [control]);
 
   return (
-    <ManageMoviesSection>
+    <>
       <Header />
-      <Dialog.Root open={openModal} onOpenChange={setOpenModal}>
-        <DialogTrigger>Cadastrar novo filme</DialogTrigger>
-        <Dialog.Portal>
-          <DialogOverlay>
-            <DialogContent>
-              <RegisterMovieForm
-                control={control}
-                setControl={setControl}
-                setOpenModal={setOpenModal}
-              />
-            </DialogContent>
-          </DialogOverlay>
-        </Dialog.Portal>
-      </Dialog.Root>
-      <Title>Filmes Cadastrados:</Title>
-      <MovieList>
-        {movies.map((movie) => (
-          <MovieItem key={movie.id}>
-            {movie.name} <button onClick={() => deleteMovie(movie.id)}>deletar</button>
-          </MovieItem>
-        ))}
-      </MovieList>
-    </ManageMoviesSection>
+      <ManageSection>
+        <CreateMovieContainer>
+          <CreateMovieButton type="button" onClick={() => setOpenCreateMovieModal(true)}>
+            Cadastrar Novo filme
+          </CreateMovieButton>
+        </CreateMovieContainer>
+
+        <MovieListTitle>Filmes Cadastrados:</MovieListTitle>
+        <MovieList>
+          {movies.map((movie) => (
+            <MovieItem key={movie.id}>
+              <div>
+                <h3>Nome:</h3>
+                <span>{movie.name}</span>
+              </div>
+
+              <div>
+                <h3>Url da Imagem:</h3>
+                <span>{movie.imageUrl}</span>
+              </div>
+
+              <div>
+                <h3>Ano de Lançamento:</h3>
+                <span>{movie.releaseYear}</span>
+              </div>
+
+              <div>
+                <h3>Classificação:</h3>
+                <span>{movie.ageRating + ' anos'}</span>
+              </div>
+
+              <div>
+                <h3>Gêneros:</h3>
+                <span>{movie.genres.map((genre) => genre.name)}</span>
+              </div>
+
+              <div>
+                <h3>Disponibilidade:</h3>
+                <span>{movie.stream.map((stream) => stream.name)}</span>
+              </div>
+
+              <Actions>
+                <EditButton
+                  onClick={() => {
+                    setMovieToUpdate(movie);
+                    setOpenEditMovieModal(true);
+                  }}
+                >
+                  editar
+                </EditButton>
+                <DeleteButton onClick={() => handleDeleteMovieSubmit(movie.id)}>
+                  deletar
+                </DeleteButton>
+              </Actions>
+            </MovieItem>
+          ))}
+        </MovieList>
+
+        <RadixDialog open={openCreateMovieModal} onOpenChange={setOpenCreateMovieModal}>
+          <MovieForm onSubmit={handleCreateMovieSubmit} btnText="Cadastrar" />
+        </RadixDialog>
+
+        <RadixDialog open={openEditMovieModal} onOpenChange={setOpenEditMovieModal}>
+          <MovieForm onSubmit={handleUpdateMovieSubmit} movie={movieToUpdate} btnText="Editar" />
+        </RadixDialog>
+
+        <ToastMessage
+          openToast={openToast}
+          setOpenToast={setOpenToast}
+          title="Erro"
+          messages={toastMessage}
+        />
+      </ManageSection>
+    </>
   );
 }

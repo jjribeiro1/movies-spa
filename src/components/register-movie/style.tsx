@@ -1,48 +1,33 @@
 import styled, { css } from 'styled-components';
+import { Close } from '@radix-ui/react-dialog';
 
-export const RegisterForm = styled.form`
+export const FormContainer = styled.form`
   ${({ theme }) => css`
+    position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 1.5rem;
+    gap: 1rem;
     width: 360px;
-    height: 620px;
+    height: 580px;
     border-radius: 10px;
     background-color: ${theme.colors.lightBg3};
     position: relative;
   `}
 `;
 
-export const FormHeader = styled.div`
+export const CloseForm = styled(Close)`
   ${({ theme }) => css`
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-
-    button {
-      position: absolute;
-      top: 15px;
-      right: 5px;
-      width: 1.7rem;
-      height: 1.5rem;
-      border-radius: 5px;
-      background-color: inherit;
-      border-style: none;
-      color: ${theme.colors.c2};
-      font-size: 1.2rem;
-
-      :hover {
-        cursor: pointer;
-      }
-    }
-  `}
-`;
-
-export const FormTitle = styled.h2`
-  ${({ theme }) => css`
-    font-weight: 600;
-    font-size: 2rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 0;
+    font-size: 1.3rem;
+    background-color: inherit;
     color: ${theme.colors.c1};
+    cursor: pointer;
   `}
 `;
 
@@ -51,7 +36,7 @@ export const FormControls = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    margin: 1rem 1rem;
+    width: 100%;
 
     label {
       font-size: 1.3rem;
@@ -60,33 +45,9 @@ export const FormControls = styled.div`
     }
 
     input {
-      padding: 0.6rem;
-      height: 1.8rem;
       font-size: 1.2rem;
       border-radius: 5px;
       background-color: ${theme.colors.inputBg};
-    }
-  `}
-`;
-
-export const SubmitButton = styled.button`
-  ${({ theme }) => css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    padding: 0.3rem;
-    margin-top: 1.5rem;
-    width: 5.5rem;
-    height: 2.5rem;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 400;
-    color: ${theme.colors.c3};
-    background-color: ${theme.colors.btnOne};
-    border-style: none;
-    :hover {
-      cursor: pointer;
     }
   `}
 `;
@@ -96,7 +57,7 @@ export const SelectControls = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    margin: 1rem 1rem;
+    width: 100%;
 
     label {
       font-size: 1.3rem;
@@ -112,4 +73,21 @@ export const SelectGenre = styled.select`
 
 export const SelectStreaming = styled.select`
   background-color: #ffffff;
+`;
+
+export const SubmitButton = styled.button`
+  ${({ theme }) => css`
+    padding: 0.2rem 0.5rem;
+    width: fit-content;
+    margin-top: 10px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 400;
+    color: ${theme.colors.c3};
+    background-color: ${theme.colors.btnOne};
+    border-style: none;
+    :hover {
+      cursor: pointer;
+    }
+  `}
 `;

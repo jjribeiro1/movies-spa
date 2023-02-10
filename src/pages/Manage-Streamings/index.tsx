@@ -3,7 +3,7 @@ import { Header } from '../../components/header';
 import { RadixDialog } from '../../components/radix-dialog';
 import { ToastMessage } from '../../components/radix-toast';
 import { StreamingService } from '../../services/streaming-service';
-import { CreateStreamingInput, Streaming } from '../../types/streaming-service-types';
+import { Streaming } from '../../types/streaming-service-types';
 import {
   CreateStreamingButton,
   CreateStreamingContainer,

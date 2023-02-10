@@ -18,12 +18,12 @@ import {
 
 export function ManageGenres() {
   const [genres, setGenres] = useState<Genre[]>([]);
-  const [genreToEdit, setGenreToEdit] = useState('');
+  const [genreToEdit, setGenreToEdit] = useState({} as Genre);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const [toastMessage, setToastMessage] = useState<string[]>([]);
   const [control, setControl] = useState(false);
-  const [inputValue, setInputValue] = useState<CreateGenreInput>({
+  const [createGenreInputValue, setCreateGenreInputValue] = useState<CreateGenreInput>({
     name: '',
   });
 
@@ -38,7 +38,7 @@ export function ManageGenres() {
 
   async function handleCreateGenreSubmit() {
     try {
-      await GenreService().create(inputValue);
+      await GenreService().create(createGenreInputValue);
       setControl(!control);
       cleanInputValue();
     } catch (error: any) {
@@ -50,10 +50,13 @@ export function ManageGenres() {
   async function handleUpdateGenreSubmit(e: FormEvent<HTMLFormElement>) {
     try {
       e.preventDefault();
-      setOpenEditModal(false);
-      cleanInputValue();
-      await GenreService().update(genreToEdit, inputValue.name);
+      const data = {
+        name:
+          e.currentTarget.Name.value === genreToEdit.name ? undefined : e.currentTarget.Name.value,
+      };
+      await GenreService().update(genreToEdit.id, data.name);
       setControl(!control);
+      setOpenEditModal(false);
     } catch (error: any) {
       setToastMessage(error.response.data.message);
       setOpenToast(true);
@@ -71,7 +74,7 @@ export function ManageGenres() {
   }
 
   function cleanInputValue() {
-    setInputValue({ name: '' });
+    setCreateGenreInputValue({ name: '' });
   }
 
   useEffect(() => {
@@ -87,8 +90,8 @@ export function ManageGenres() {
           <h2>Adicionar novo gênero</h2>
           <input
             type="text"
-            onChange={(e) => setInputValue({ name: e.target.value })}
-            value={openEditModal ? '' : inputValue.name}
+            onChange={(e) => setCreateGenreInputValue({ name: e.target.value })}
+            value={createGenreInputValue.name}
           />
           <button onClick={handleCreateGenreSubmit}>Cadastrar</button>
         </CreateGenreContainer>
@@ -105,7 +108,7 @@ export function ManageGenres() {
                   onClick={() => {
                     cleanInputValue();
                     setOpenEditModal(true);
-                    setGenreToEdit(genre.id);
+                    setGenreToEdit(genre);
                   }}
                 >
                   editar
@@ -131,7 +134,7 @@ export function ManageGenres() {
           </span>
           <label>
             Nome
-            <input type="text" onChange={(e) => setInputValue({ name: e.target.value })} />
+            <input type="text" id="name" name="Name" defaultValue={genreToEdit.name} />
           </label>
           <button type="submit">Editar</button>
         </GenreForm>

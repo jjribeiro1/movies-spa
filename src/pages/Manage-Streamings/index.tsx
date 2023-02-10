@@ -22,11 +22,11 @@ import {
 
 export function ManageStreamings() {
   const [streamings, setStreamings] = useState<Streaming[]>([]);
-  const [streamingToUpdate, setStreamingToUpdate] = useState('');
+  const [streamingToUpdate, setStreamingToUpdate] = useState({} as Streaming);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const [toastMessage, setToastMessage] = useState(['']);
-  const [inputValues, setInputValues] = useState({
+  const [createStreamingInputValues, setCreateStreamingInputValues] = useState({
     name: '',
     price: '',
   });
@@ -41,16 +41,16 @@ export function ManageStreamings() {
     }
   }
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleCreateStreamingInputChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-    setInputValues((prevValues) => ({ ...prevValues, [name]: value }));
+    setCreateStreamingInputValues((prevValues) => ({ ...prevValues, [name]: value }));
   }
 
   async function handleCreateStreamingSubmit() {
     try {
       const data = {
-        name: inputValues.name,
-        price: parseFloat(inputValues.price),
+        name: createStreamingInputValues.name,
+        price: parseFloat(createStreamingInputValues.price),
       };
       cleanInputValues();
       await StreamingService().create(data);
@@ -58,7 +58,6 @@ export function ManageStreamings() {
     } catch (error: any) {
       setToastMessage(error.response.data.message);
       setOpenToast(true);
-      console.log(error);
     }
   }
 
@@ -66,17 +65,19 @@ export function ManageStreamings() {
     e.preventDefault();
     try {
       const data = {
-        name: e.currentTarget.Name.value,
+        name:
+          e.currentTarget.Name.value === streamingToUpdate.name
+            ? undefined
+            : e.currentTarget.Name.value,
         price: parseFloat(e.currentTarget.price.value),
       };
 
-      await StreamingService().update({ id: streamingToUpdate, ...data });
+      await StreamingService().update({ id: streamingToUpdate.id, ...data });
       setControl(!control);
       setOpenEditModal(false);
     } catch (error: any) {
-      setToastMessage(error.response.data.message);
+      setToastMessage([error.response.data.message]);
       setOpenToast(true);
-      console.log(error);
     }
   }
 
@@ -91,7 +92,7 @@ export function ManageStreamings() {
   }
 
   function cleanInputValues() {
-    setInputValues({ name: '', price: '' });
+    setCreateStreamingInputValues({ name: '', price: '' });
   }
 
   useEffect(() => {
@@ -109,8 +110,8 @@ export function ManageStreamings() {
               type="text"
               id="name"
               name="name"
-              onChange={handleChange}
-              value={inputValues.name}
+              onChange={handleCreateStreamingInputChange}
+              value={createStreamingInputValues.name}
             />
           </InputControls>
           <InputControls>
@@ -119,8 +120,8 @@ export function ManageStreamings() {
               type="number"
               id="price"
               name="price"
-              onChange={handleChange}
-              value={inputValues.price}
+              onChange={handleCreateStreamingInputChange}
+              value={createStreamingInputValues.price}
             />
           </InputControls>
           <CreateStreamingButton onClick={handleCreateStreamingSubmit}>
@@ -138,7 +139,8 @@ export function ManageStreamings() {
                 <EditButton
                   onClick={() => {
                     setOpenEditModal(true);
-                    setStreamingToUpdate(streaming.id);
+                    cleanInputValues();
+                    setStreamingToUpdate(streaming);
                   }}
                 >
                   editar
@@ -157,12 +159,12 @@ export function ManageStreamings() {
           <span onClick={() => setOpenEditModal(false)}>X</span>
           <FormControls>
             <label htmlFor="Name">Nome</label>
-            <input type="text" name="Name" id="name" />
+            <input type="text" name="Name" id="name" defaultValue={streamingToUpdate.name} />
           </FormControls>
 
           <FormControls>
             <label htmlFor="price">Preço</label>
-            <input type="number" name="price" id="price" />
+            <input type="number" name="price" id="price" defaultValue={streamingToUpdate.price} />
           </FormControls>
           <SubmitButton type="submit">Editar</SubmitButton>
         </StreamingForm>

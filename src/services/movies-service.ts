@@ -1,5 +1,5 @@
 import { api } from '../api';
-import { Movie, CreateMovieInput } from '../types/movie-service-types';
+import { Movie, CreateMovieInput, UpdateMovieInput } from '../types/movie-service-types';
 
 export function MovieService() {
   async function create({
@@ -26,6 +26,26 @@ export function MovieService() {
     return request.data;
   }
 
+  async function update({
+    id,
+    name,
+    imageUrl,
+    ageRating,
+    releaseYear,
+    genreIds,
+    streamingIds,
+  }: UpdateMovieInput) {
+    const request = await api.patch(`/movie/${id}`, {
+      name,
+      imageUrl,
+      ageRating,
+      releaseYear,
+      genreIds,
+      streamingIds,
+    });
+    return request.data;
+  }
+
   async function remove(id: string) {
     const request = await api.delete(`/movie/${id}`);
     return request.data;
@@ -34,6 +54,7 @@ export function MovieService() {
   return {
     create,
     getAll,
+    update,
     remove,
   };
 }

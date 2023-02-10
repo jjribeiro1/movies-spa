@@ -19,3 +19,13 @@ export type CreateMovieInput = {
   streamingIds: string[];
   genreIds: string[];
 };
+
+export type UpdateMovieInput = {
+  id: string;
+  name?: string;
+  imageUrl?: string;
+  releaseYear?: number;
+  ageRating?: number;
+  streamingIds?: string[];
+  genreIds?: string[];
+};

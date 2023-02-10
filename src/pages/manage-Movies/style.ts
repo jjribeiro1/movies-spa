@@ -19,6 +19,10 @@ export const CreateMovieContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 5rem;
+
+  @media screen and (width < 1025px) {
+    padding: 2rem;
+  }
 `;
 
 export const CreateMovieButton = styled.button`
@@ -31,6 +35,16 @@ export const CreateMovieButton = styled.button`
     color: ${theme.colors.c3};
     background-color: ${theme.colors.btnOne};
     cursor: pointer;
+
+    @media screen and (width < 1025px) {
+      padding: 0.2rem 1rem;
+      font-size: 2rem;
+    }
+
+    @media screen and (width < 769px) {
+      padding: 0.2rem 1rem;
+      font-size: 1.5rem;
+    }
   `}
 `;
 
@@ -68,17 +82,33 @@ export const MovieItem = styled.li`
   ${({ theme }) => css`
     list-style: none;
     padding: 1rem;
+    width: 100%;
+    @media screen and (width <= 700px) {
+      padding: 0.3rem 0rem;
+    }
     div {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
+      word-break: break-all;
       gap: 8px;
+      width: 100%;
+
+      @media screen and (width < 1025px) {
+        font-size: 0.8rem;
+      }
+
+      @media screen and (width <= 700px) {
+        font-size: 0.7rem;
+      }
 
       h3 {
-        display: inline;
+        display: inline-flex;
         color: ${theme.colors.c5};
       }
 
       span {
+        display: inline-block;
         color: ${theme.colors.c1};
       }
     }

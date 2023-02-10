@@ -11,7 +11,7 @@ html, body, #root {
   ${({ theme }) => css`
     background-color: ${theme.colors.pageBg};
   `}
-  height: 100%;
+  height: 100vh;
 }
 body {
   font-family: 'Roboto', sans-serif;

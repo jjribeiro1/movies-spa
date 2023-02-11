@@ -26,7 +26,7 @@ export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
       cpf: e.currentTarget.cpf.value,
     };
 
-    const nameIsValid = data.name.length > 3 ? true : false;
+    const nameIsValid = data.name.length >= 3 ? true : false;
     const emailIsValid = ValidateEmail(data.email);
     const passwordIsValid = ValidatePassword(data.password);
     const cpfIsValid = ValidateCpf(data.cpf);

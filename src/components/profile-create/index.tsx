@@ -23,7 +23,7 @@ export function CreateProfile({ setOpenCreateModal, control, setControl }: Creat
       imageUrl: e.currentTarget.imageUrl.value,
     };
 
-    const nameIsValid = data.name.length > 3 ? true : false;
+    const nameIsValid = data.name.length >= 3 ? true : false;
 
     if (!nameIsValid) {
       error.push('Nome deve ter pelo menos 3 caracterers');

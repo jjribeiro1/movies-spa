@@ -68,7 +68,7 @@ export const GenreList = styled.ul`
 
 export const GenreListTitle = styled.h2`
   ${({ theme }) => css`
-    margin: 1rem;
+    margin: 2rem;
     font-size: 3rem;
     color: ${theme.colors.c7};
 
@@ -87,23 +87,15 @@ export const GenreItem = styled.li`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem;
     height: fit-content;
-    width: 50%;
-
-    @media screen and (width <= 700px) {
-      width: 60%;
-    }
-
-    @media screen and (width <= 600px) {
-      width: 80%;
-    }
-
-    @media screen and (width <= 500px) {
-      width: 100%;
+    width: 100%;
+    :nth-child(odd) {
+      background-color: ${theme.colors.c8};
     }
 
     span {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 600;
       color: ${theme.colors.c5};
 

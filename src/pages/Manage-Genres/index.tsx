@@ -96,9 +96,8 @@ export function ManageGenres() {
           <button onClick={handleCreateGenreSubmit}>Cadastrar</button>
         </CreateGenreContainer>
 
+        <GenreListTitle>Gêneros Cadastrados:</GenreListTitle>
         <GenreList>
-          <GenreListTitle>Gêneros Cadastrados:</GenreListTitle>
-
           {genres.map((genre) => (
             <GenreItem key={genre.id}>
               <span>{genre.name}</span>

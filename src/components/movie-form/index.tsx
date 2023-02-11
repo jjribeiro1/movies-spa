@@ -74,11 +74,20 @@ export function MovieForm({ onSubmit, movie, btnText }: RegisterMovieFormProps) 
       </FormControls>
 
       <SelectControls>
-        <label htmlFor="">Genero</label>
+        <label htmlFor="">Gênero</label>
         <SelectGenre name="genreIds" id="genreIds">
-          <option defaultValue="" value=""></option>
+          {btnText === 'Cadastrar' && (
+            <option value="" selected disabled hidden>
+              Selecione um gênero
+            </option>
+          )}
+
           {genres.map((genre) => (
-            <option key={genre.id} value={genre.id}>
+            <option
+              key={genre.id}
+              value={genre.id}
+              selected={movie?.genres.some((genreMovie) => genre.name === genreMovie.name)}
+            >
               {genre.name}
             </option>
           ))}
@@ -88,9 +97,19 @@ export function MovieForm({ onSubmit, movie, btnText }: RegisterMovieFormProps) 
       <SelectControls>
         <label htmlFor="streaming">Streaming</label>
         <SelectStreaming name="streamingIds" id="streamingIds">
-          <option defaultValue="" value=""></option>
+          {btnText === 'Cadastrar' && (
+            <option value="" selected disabled hidden>
+              Selecione um streaming
+            </option>
+          )}
           {streaming.map((streaming) => (
-            <option key={streaming.id} value={streaming.id}>
+            <option
+              key={streaming.id}
+              value={streaming.id}
+              selected={movie?.stream.some(
+                (movieStreaming) => streaming.name === movieStreaming.name
+              )}
+            >
               {streaming.name}
             </option>
           ))}

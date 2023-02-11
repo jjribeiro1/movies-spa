@@ -1,36 +1,30 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SubmitButton, FormTitle, FormControls, LoginForm, LoginSection, Register } from './style';
 import { RegisterUserForm } from '../../components/register-user';
 import { ToastMessage } from '../../components/radix-toast';
 import { RadixDialog } from '../../components/radix-dialog';
-import { AuthService } from '../../services/auth-service';
+import { AuthService, LoginInput } from '../../services/auth-service';
 import { ValidateEmail } from '../../validations/email-validator';
 import { ValidatePassword } from '../../validations/password-validator';
 import { LocalStorageHelper } from '../../helper/local-storage';
 
 export function Login() {
   const navigate = useNavigate();
-  const [inputValues, setInputValues] = useState({
-    email: '',
-    password: '',
-  });
   const [errors, setErrors] = useState<string[]>([]);
   const [openToast, setOpenToast] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-    setInputValues((prevValues) => ({ ...prevValues, [name]: value }));
-  }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const error = [];
 
-    const { email, password } = inputValues;
-    const emailIsValid = ValidateEmail(email);
-    const passwordIsValid = ValidatePassword(password);
+    const data: LoginInput = {
+      email: e.currentTarget.email.value,
+      password: e.currentTarget.password.value,
+    };
+    const emailIsValid = ValidateEmail(data.email);
+    const passwordIsValid = ValidatePassword(data.password);
 
     if (!emailIsValid) {
       error.push('Email inválido');
@@ -47,12 +41,12 @@ export function Login() {
       return;
     }
 
-    authentication();
+    authentication(data);
   }
 
-  async function authentication() {
+  async function authentication(data: LoginInput) {
     try {
-      await AuthService().login(inputValues);
+      await AuthService().login(data);
       const token = LocalStorageHelper.getItem('access_token');
       if (token) {
         navigate('/profile');
@@ -73,12 +67,12 @@ export function Login() {
         <FormTitle>Login</FormTitle>
         <FormControls>
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" onChange={handleChange} />
+          <input type="email" name="email" id="email" />
         </FormControls>
 
         <FormControls>
           <label htmlFor="password">Senha</label>
-          <input type="password" name="password" id="password" onChange={handleChange} />
+          <input type="password" name="password" id="password" />
         </FormControls>
 
         <SubmitButton type="submit">Entrar</SubmitButton>

@@ -1,7 +1,8 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { ProfileService } from '../../services/profile-service';
 import { FormProfile } from '../profile-form';
 import { ToastMessage } from '../radix-toast';
+import { CreateProfileInput } from '../../types/profile-service-types';
 
 type CreateProfileProps = {
   setOpenCreateModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,23 +11,20 @@ type CreateProfileProps = {
 };
 
 export function CreateProfile({ setOpenCreateModal, control, setControl }: CreateProfileProps) {
-  const [inputValues, setInputValues] = useState({
-    name: '',
-    imageUrl: '',
-  });
   const [errors, setErrors] = useState<string[]>([]);
   const [openToast, setOpenToast] = useState(false);
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-    setInputValues((prevValues) => ({ ...prevValues, [name]: value }));
-  }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const error = [];
-    const { name } = inputValues;
-    const nameIsValid = name.length > 3 ? true : false;
+
+    const data: CreateProfileInput = {
+      name: e.currentTarget.Name.value,
+      imageUrl: e.currentTarget.imageUrl.value,
+    };
+
+    const nameIsValid = data.name.length > 3 ? true : false;
+
     if (!nameIsValid) {
       error.push('Nome deve ter pelo menos 3 caracterers');
     }
@@ -36,12 +34,12 @@ export function CreateProfile({ setOpenCreateModal, control, setControl }: Creat
       return;
     }
 
-    registerProfile();
+    registerProfile(data);
   }
 
-  async function registerProfile() {
+  async function registerProfile(data: CreateProfileInput) {
     try {
-      await ProfileService().create(inputValues);
+      await ProfileService().create(data);
       setControl(!control);
       setOpenCreateModal(false);
     } catch (error: any) {
@@ -57,7 +55,7 @@ export function CreateProfile({ setOpenCreateModal, control, setControl }: Creat
 
   return (
     <>
-      <FormProfile title="Novo Perfil" handleChange={handleChange} handleSubmit={handleSubmit} />
+      <FormProfile title="Novo Perfil" handleSubmit={handleSubmit} />
       <ToastMessage
         openToast={openToast}
         setOpenToast={setOpenToast}

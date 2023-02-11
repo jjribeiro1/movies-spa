@@ -1,6 +1,6 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { ProfileService } from '../../services/profile-service';
-import { Profile } from '../../types/profile-service-types';
+import { CreateProfileInput, Profile, UpdateProfileInput } from '../../types/profile-service-types';
 import { FormProfile } from '../profile-form';
 import { ToastMessage } from '../radix-toast';
 
@@ -17,24 +17,19 @@ export function UpdateProfile({
   control,
   setControl,
 }: UpdateProfileProps) {
-  const [inputValues, setInputValues] = useState({
-    name: profile.name,
-    imageUrl: profile.imageUrl,
-  });
   const [errors, setErrors] = useState<string[]>([]);
   const [openToast, setOpenToast] = useState(false);
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-    setInputValues((prevValues) => ({ ...prevValues, [name]: value }));
-  }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const error = [];
-    const { name } = inputValues;
 
-    const nameIsValid = name.length > 3 ? true : false;
+    const data: CreateProfileInput = {
+      name: e.currentTarget.Name.value,
+      imageUrl: e.currentTarget.imageUrl.value,
+    };
+
+    const nameIsValid = data.name.length > 3 ? true : false;
     if (!nameIsValid) {
       error.push('Nome deve ter pelo menos 3 caracterers');
     }
@@ -44,12 +39,12 @@ export function UpdateProfile({
       return;
     }
 
-    updateProfile();
+    updateProfile({ id: profile.id, ...data });
   }
 
-  async function updateProfile() {
+  async function updateProfile(data: UpdateProfileInput) {
     try {
-      await ProfileService().update({ id: profile.id, ...inputValues });
+      await ProfileService().update(data);
       setControl(!control);
       setOpenUpdateModal(false);
     } catch (error: any) {
@@ -65,12 +60,7 @@ export function UpdateProfile({
 
   return (
     <>
-      <FormProfile
-        title="Editar Perfil"
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        profile={profile}
-      />
+      <FormProfile title="Editar Perfil" handleSubmit={handleSubmit} profile={profile} />
       <ToastMessage
         openToast={openToast}
         setOpenToast={setOpenToast}

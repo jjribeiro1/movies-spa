@@ -1,15 +1,14 @@
 import { FormContainer, FormHeader, FormTitle, FormControls, SubmitButton } from './style';
 import { Close } from '@radix-ui/react-dialog';
-import { ChangeEvent, FormEvent } from 'react';
+import { FormEvent } from 'react';
 import { Profile } from '../../types/profile-service-types';
 
 type FormProfileProps = {
   title: string;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   profile?: Profile;
 };
-export function FormProfile({ title, handleChange, handleSubmit, profile }: FormProfileProps) {
+export function FormProfile({ title, handleSubmit, profile }: FormProfileProps) {
   return (
     <FormContainer onSubmit={handleSubmit}>
       <FormHeader>
@@ -18,14 +17,7 @@ export function FormProfile({ title, handleChange, handleSubmit, profile }: Form
       </FormHeader>
       <FormControls>
         <label htmlFor="name">Nome</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          required
-          onChange={handleChange}
-          defaultValue={profile?.name}
-        />
+        <input type="text" name="Name" id="name" required defaultValue={profile?.name} />
       </FormControls>
 
       <FormControls>
@@ -35,7 +27,6 @@ export function FormProfile({ title, handleChange, handleSubmit, profile }: Form
           name="imageUrl"
           id="imageUrl"
           required
-          onChange={handleChange}
           defaultValue={profile?.imageUrl}
         />
       </FormControls>

@@ -3,7 +3,11 @@ import { Header } from '../../components/header';
 import { RadixDialog } from '../../components/radix-dialog';
 import { ToastMessage } from '../../components/radix-toast';
 import { StreamingService } from '../../services/streaming-service';
-import { Streaming } from '../../types/streaming-service-types';
+import {
+  CreateStreamingInput,
+  Streaming,
+  UpdateStreamingInput,
+} from '../../types/streaming-service-types';
 import {
   CreateStreamingButton,
   CreateStreamingContainer,
@@ -46,13 +50,26 @@ export function ManageStreamings() {
     setCreateStreamingInputValues((prevValues) => ({ ...prevValues, [name]: value }));
   }
 
-  async function handleCreateStreamingSubmit() {
+  function handleCreateStreamingSubmit() {
+    const error: string[] = [];
+    const data: CreateStreamingInput = {
+      name: createStreamingInputValues.name,
+      price: parseFloat(createStreamingInputValues.price),
+    };
+    data.name.length >= 3 ? null : error.push('Nome precisa ter pelo menos 3 caracteres');
+    data.price > 0 ? null : error.push('Preço deve ser maior que 0');
+
+    if (error.length > 0) {
+      setToastMessage(error);
+      setOpenToast(true);
+      return;
+    }
+    cleanInputValues();
+    createStreaming(data);
+  }
+
+  async function createStreaming(data: CreateStreamingInput) {
     try {
-      const data = {
-        name: createStreamingInputValues.name,
-        price: parseFloat(createStreamingInputValues.price),
-      };
-      cleanInputValues();
       await StreamingService().create(data);
       setControl(!control);
     } catch (error: any) {
@@ -61,18 +78,34 @@ export function ManageStreamings() {
     }
   }
 
-  async function handleUpdateStreamingSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleUpdateStreamingSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    try {
-      const data = {
-        name:
-          e.currentTarget.Name.value === streamingToUpdate.name
-            ? undefined
-            : e.currentTarget.Name.value,
-        price: parseFloat(e.currentTarget.price.value),
-      };
+    const error: string[] = [];
+    const data: CreateStreamingInput = {
+      name:
+        e.currentTarget.Name.value === streamingToUpdate.name
+          ? undefined
+          : e.currentTarget.Name.value,
+      price: parseFloat(e.currentTarget.price.value),
+    };
 
-      await StreamingService().update({ id: streamingToUpdate.id, ...data });
+    if (data.name) {
+      data.name.length >= 3 ? null : error.push('Nome precisa ter pelo menos 3 caracteres');
+    }
+
+    data.price > 0 ? null : error.push('Preço deve ser maior que 0');
+
+    if (error.length > 0) {
+      setToastMessage(error);
+      setOpenToast(true);
+      return;
+    }
+    updateStreaming({ id: streamingToUpdate.id, ...data });
+  }
+
+  async function updateStreaming(data: UpdateStreamingInput) {
+    try {
+      await StreamingService().update(data);
       setControl(!control);
       setOpenEditModal(false);
     } catch (error: any) {

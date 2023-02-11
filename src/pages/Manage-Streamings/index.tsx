@@ -133,8 +133,14 @@ export function ManageStreamings() {
         <StreamingList>
           {streamings.map((streaming) => (
             <StreamingItem key={streaming.id}>
-              <span>Nome: {streaming.name}</span>
-              <span>Preço: {streaming.price}</span>
+              <div>
+                <h3>Nome:</h3>
+                <span>{streaming.name}</span>
+              </div>
+              <div>
+                <h3>Preço:</h3>
+                <span>{streaming.price}</span>
+              </div>
               <Actions>
                 <EditButton
                   onClick={() => {

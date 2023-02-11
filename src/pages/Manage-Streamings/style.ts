@@ -120,25 +120,39 @@ export const StreamingList = styled.ul`
 
 export const StreamingItem = styled.li`
   ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
+    list-style: none;
     padding: 1rem;
-    height: fit-content;
     width: 100%;
-    text-transform: capitalize;
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      font-size: 1.5rem;
+
+      @media screen and (width < 1025px) {
+        font-size: 0.8rem;
+      }
+
+      @media screen and (width <= 700px) {
+        font-size: 0.7rem;
+      }
+
+      h3 {
+        display: inline-flex;
+        color: ${theme.colors.c5};
+      }
+
+      span {
+        display: inline-block;
+        color: ${theme.colors.c1};
+        text-transform: capitalize;
+      }
+    }
 
     :nth-child(odd) {
       background-color: ${theme.colors.c8};
-    }
-
-    span {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: ${theme.colors.c5};
-
-      @media screen and (width < 769px) {
-        font-size: 1rem;
-      }
     }
   `}
 `;

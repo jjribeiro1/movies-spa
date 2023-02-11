@@ -1,39 +1,35 @@
 import { FormControls, FormHeader, FormTitle, RegisterForm, SubmitButton } from './style';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { ValidateEmail } from '../../validations/email-validator';
 import { ValidatePassword } from '../../validations/password-validator';
 import { ValidateCpf } from '../../validations/cpf-validator';
 import { ToastMessage } from '../radix-toast';
 import { UserService } from '../../services/user-service';
+import { RegisterUserInput } from '../../types/user-service-types';
 
 type RegisterUserFormProps = {
   setOpenRegister: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
-  const [inputValues, setInputValues] = useState({
-    name: '',
-    email: '',
-    password: '',
-    cpf: '',
-  });
   const [errors, setErrors] = useState<string[]>([]);
   const [openToast, setOpenToast] = useState(false);
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target;
-    setInputValues((prevValues) => ({ ...prevValues, [name]: value }));
-  }
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const error = [];
-    const { name, email, password, cpf } = inputValues;
 
-    const nameIsValid = name.length > 3 ? true : false;
-    const emailIsValid = ValidateEmail(email);
-    const passwordIsValid = ValidatePassword(password);
-    const cpfIsValid = ValidateCpf(cpf);
+    const data: RegisterUserInput = {
+      name: e.currentTarget.Name.value,
+      email: e.currentTarget.email.value,
+      password: e.currentTarget.password.value,
+      cpf: e.currentTarget.cpf.value,
+    };
+
+    const nameIsValid = data.name.length > 3 ? true : false;
+    const emailIsValid = ValidateEmail(data.email);
+    const passwordIsValid = ValidatePassword(data.password);
+    const cpfIsValid = ValidateCpf(data.cpf);
 
     if (!nameIsValid) {
       error.push('Nome deve ter pelo menos 3 caracteres');
@@ -59,12 +55,12 @@ export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
       return;
     }
 
-    registerUser();
+    registerUser(data);
   }
 
-  async function registerUser() {
+  async function registerUser(data: RegisterUserInput) {
     try {
-      await UserService().register(inputValues);
+      await UserService().register(data);
       setOpenRegister(false);
     } catch (error: any) {
       if (error.response.data.message === 'Email must be unique') {
@@ -94,22 +90,22 @@ export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
 
         <FormControls>
           <label htmlFor="name">Nome</label>
-          <input type="text" name="name" id="name" required onChange={handleChange} />
+          <input type="text" name="Name" id="name" required />
         </FormControls>
 
         <FormControls>
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" required onChange={handleChange} />
+          <input type="email" name="email" id="email" required />
         </FormControls>
 
         <FormControls>
           <label htmlFor="password">Senha</label>
-          <input type="password" name="password" id="password" required onChange={handleChange} />
+          <input type="password" name="password" id="password" required />
         </FormControls>
 
         <FormControls>
           <label htmlFor="cpf">CPF</label>
-          <input type="number" name="cpf" id="cpf" required onChange={handleChange} />
+          <input type="number" name="cpf" id="cpf" required />
         </FormControls>
 
         <SubmitButton type="submit">Cadastrar</SubmitButton>

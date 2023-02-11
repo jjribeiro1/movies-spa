@@ -1,7 +1,7 @@
 import { api } from '../api';
 import { LocalStorageHelper } from '../helper/local-storage';
 
-type LoginInput = {
+export type LoginInput = {
   email: string;
   password: string;
 };

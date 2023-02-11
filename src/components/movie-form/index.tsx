@@ -74,7 +74,7 @@ export function MovieForm({ onSubmit, movie, btnText }: RegisterMovieFormProps) 
       </FormControls>
 
       <SelectControls>
-        <label htmlFor="">Gênero</label>
+        <label htmlFor="genreIds">Gênero</label>
         <SelectGenre name="genreIds" id="genreIds">
           {btnText === 'Cadastrar' && (
             <option value="" selected disabled hidden>
@@ -95,7 +95,7 @@ export function MovieForm({ onSubmit, movie, btnText }: RegisterMovieFormProps) 
       </SelectControls>
 
       <SelectControls>
-        <label htmlFor="streaming">Streaming</label>
+        <label htmlFor="streamingIds">Streaming</label>
         <SelectStreaming name="streamingIds" id="streamingIds">
           {btnText === 'Cadastrar' && (
             <option value="" selected disabled hidden>

@@ -164,7 +164,7 @@ export function ManageStreamings() {
         <StreamingForm onSubmit={handleUpdateStreamingSubmit}>
           <span onClick={() => setOpenEditModal(false)}>X</span>
           <FormControls>
-            <label htmlFor="Name">Nome</label>
+            <label htmlFor="name">Nome</label>
             <input type="text" name="Name" id="name" defaultValue={streamingToUpdate.name} />
           </FormControls>
 

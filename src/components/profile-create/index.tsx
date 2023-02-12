@@ -23,11 +23,8 @@ export function CreateProfile({ setOpenCreateModal, control, setControl }: Creat
       imageUrl: e.currentTarget.imageUrl.value,
     };
 
-    const nameIsValid = data.name.length >= 3 ? true : false;
+    data.name.length >= 3 ? null : error.push('Nome deve ter pelo menos 3 caracterers');
 
-    if (!nameIsValid) {
-      error.push('Nome deve ter pelo menos 3 caracterers');
-    }
     if (error.length > 0) {
       setErrors(error);
       setOpenToast(true);

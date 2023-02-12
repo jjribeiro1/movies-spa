@@ -23,17 +23,12 @@ export function Login() {
       email: e.currentTarget.email.value,
       password: e.currentTarget.password.value,
     };
-    const emailIsValid = ValidateEmail(data.email);
-    const passwordIsValid = ValidatePassword(data.password);
-
-    if (!emailIsValid) {
-      error.push('Email inválido');
-    }
-    if (!passwordIsValid) {
-      error.push(
-        'Senha deve conter no mínimo 8 caracteres, um caracter especial(!, @, #, $, %) e um número '
-      );
-    }
+    ValidateEmail(data.email) ? null : error.push('Email inválido');
+    ValidatePassword(data.password)
+      ? null
+      : error.push(
+          'Senha deve conter no mínimo 8 caracteres, um caracter especial(!, @, #, $, %) e um número '
+        );
 
     if (error.length > 0) {
       setErrors(error);

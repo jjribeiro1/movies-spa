@@ -29,10 +29,8 @@ export function UpdateProfile({
       imageUrl: e.currentTarget.imageUrl.value,
     };
 
-    const nameIsValid = data.name.length >= 3 ? true : false;
-    if (!nameIsValid) {
-      error.push('Nome deve ter pelo menos 3 caracterers');
-    }
+    data.name.length >= 3 ? null : error.push('Nome deve ter pelo menos 3 caracterers');
+
     if (error.length > 0) {
       setErrors(error);
       setOpenToast(true);

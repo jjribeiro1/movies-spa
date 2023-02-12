@@ -26,28 +26,15 @@ export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
       cpf: e.currentTarget.cpf.value,
     };
 
-    const nameIsValid = data.name.length >= 3 ? true : false;
-    const emailIsValid = ValidateEmail(data.email);
-    const passwordIsValid = ValidatePassword(data.password);
-    const cpfIsValid = ValidateCpf(data.cpf);
+    data.name.length >= 3 ? null : error.push('Nome deve ter pelo menos 3 caracteres');
+    ValidateEmail(data.email) ? null : error.push('Email inválido');
+    ValidatePassword(data.password)
+      ? null
+      : error.push(
+          'Senha deve conter no mínimo 8 caracteres, um caracter especial(!, @, #, $, %) e um número '
+        );
 
-    if (!nameIsValid) {
-      error.push('Nome deve ter pelo menos 3 caracteres');
-    }
-
-    if (!emailIsValid) {
-      error.push('Email inválido');
-    }
-
-    if (!passwordIsValid) {
-      error.push(
-        'Senha deve conter no mínimo 8 caracteres, um caracter especial(!, @, #, $, %) e um número '
-      );
-    }
-
-    if (!cpfIsValid) {
-      error.push('Cpf inválido');
-    }
+    ValidateCpf(data.cpf) ? null : error.push('Cpf inválido');
 
     if (error.length > 0) {
       setErrors(error);

@@ -1,7 +1,9 @@
+import { Movie } from "./movie-service-types";
+
 export type Genre = {
   id: string;
   name: string;
-  movies?: any[];
+  movies?: Movie[];
 };
 
 export type CreateGenreInput = {

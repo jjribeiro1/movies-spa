@@ -1,8 +1,10 @@
+import { Movie } from "./movie-service-types";
+
 export type Streaming = {
   id: string;
   name: string;
   price: number
-  movies?: any[];
+  movies?: Movie[];
 };
 
 export type CreateStreamingInput = {

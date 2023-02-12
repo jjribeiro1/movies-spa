@@ -6,4 +6,9 @@ export type Genre = {
 
 export type CreateGenreInput = {
   name: string;
-}
+};
+
+export type UpdateGenreInput = {
+  id: string;
+  name: string;
+};

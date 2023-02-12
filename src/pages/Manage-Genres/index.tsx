@@ -3,7 +3,7 @@ import { Header } from '../../components/header';
 import { RadixDialog } from '../../components/radix-dialog';
 import { ToastMessage } from '../../components/radix-toast';
 import { GenreService } from '../../services/genre-service';
-import { CreateGenreInput, Genre } from '../../types/genre-service-types';
+import { CreateGenreInput, Genre, UpdateGenreInput } from '../../types/genre-service-types';
 import {
   CreateGenreContainer,
   GenreItem,
@@ -36,9 +36,25 @@ export function ManageGenres() {
     }
   }
 
-  async function handleCreateGenreSubmit() {
+  function handleCreateGenreSubmit() {
+    const error: string[] = [];
+    const data: CreateGenreInput = {
+      name: createGenreInputValue.name,
+    };
+
+    data.name.length > 3 ? null : error.push('Nome precisa ter pelo menos 3 caracteres');
+
+    if (error.length > 0) {
+      setToastMessage(error);
+      setOpenToast(true);
+      return;
+    }
+    createGenre(data);
+  }
+
+  async function createGenre(data: CreateGenreInput) {
     try {
-      await GenreService().create(createGenreInputValue);
+      await GenreService().create(data);
       setControl(!control);
       cleanInputValue();
     } catch (error: any) {
@@ -47,14 +63,28 @@ export function ManageGenres() {
     }
   }
 
-  async function handleUpdateGenreSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleUpdateGenreSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const error: string[] = [];
+    const data: CreateGenreInput = {
+      name:
+        e.currentTarget.Name.value === genreToEdit.name ? undefined : e.currentTarget.Name.value,
+    };
+
+    if (data.name) {
+      data.name.length > 3 ? null : error.push('Nome precisa ter pelo menos 3 caracteres');
+    }
+    if (error.length > 0) {
+      setToastMessage(error);
+      setOpenToast(true);
+      return;
+    }
+    updateGenre({ id: genreToEdit.id, ...data });
+  }
+
+  async function updateGenre(data: UpdateGenreInput) {
     try {
-      e.preventDefault();
-      const data = {
-        name:
-          e.currentTarget.Name.value === genreToEdit.name ? undefined : e.currentTarget.Name.value,
-      };
-      await GenreService().update(genreToEdit.id, data.name);
+      await GenreService().update(data);
       setControl(!control);
       setOpenEditModal(false);
     } catch (error: any) {

@@ -1,5 +1,5 @@
 import { api } from '../api';
-import { CreateGenreInput, Genre } from '../types/genre-service-types';
+import { CreateGenreInput, Genre, UpdateGenreInput } from '../types/genre-service-types';
 
 export function GenreService() {
   async function create({ name }: CreateGenreInput) {
@@ -12,7 +12,7 @@ export function GenreService() {
     return request.data;
   }
 
-  async function update(id: string, name: string) {
+  async function update({ id, name }: UpdateGenreInput) {
     const request = await api.patch<Genre[]>(`/genre/${id}`, { name });
     return request.data;
   }

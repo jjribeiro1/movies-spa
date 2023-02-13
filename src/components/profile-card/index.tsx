@@ -7,6 +7,7 @@ import { RadixDialog } from '../radix-dialog';
 import { UpdateProfile } from '../profile-update';
 import { RadixAlert } from '../radix-alert';
 import { DeleteProfile } from '../profile-delete';
+import { LocalStorageHelper } from '../../helper/local-storage';
 
 interface ProfileCardProps {
   control: boolean;
@@ -20,10 +21,12 @@ export function ProfileCard({ control, setControl, isEditingProfile, profile }: 
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
 
+  const selectedProfileByUser = (id: string) => LocalStorageHelper.setItem('selected_profile', id);
+
   return (
     <>
       <Root open={openPopover} onOpenChange={setOpenPopover}>
-        <Card>
+        <Card onClick={() => selectedProfileByUser(profile.id)}>
           <Link to={isEditingProfile ? '' : '/home'}>
             <Anchor>
               <SettingIcon

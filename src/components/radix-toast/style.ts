@@ -10,16 +10,18 @@ export const ToastViewport = styled(Viewport)`
   z-index: 999999;
 `;
 
-export const ToastRoot = styled(Root)`
-  ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem;
-    gap: 0.5rem;
-    border-radius: 5px;
-    background-color: ${theme.colors.toastFail};
-    color: ${theme.colors.c1};
-  `}
+export type ToastType = {
+  typeMessage?: string;
+};
+
+export const ToastRoot = styled(Root)<ToastType>`
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: ${(props) => (props.typeMessage === 'success' ? '#1c252f' : '#e62f30')};
 `;
 
 export const ToastTitle = styled(Title)`
@@ -27,11 +29,15 @@ export const ToastTitle = styled(Title)`
   font-weight: 600;
 `;
 
+export const ToastHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
 export const ToastClose = styled(Close)`
   ${({ theme }) => css`
-    position: absolute;
-    top: 8px;
-    right: 10px;
     padding: 0.5px 4px;
     border-style: none;
     border-radius: 2px;

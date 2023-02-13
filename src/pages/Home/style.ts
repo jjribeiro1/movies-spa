@@ -48,7 +48,7 @@ type SearchIconProps = {
 
 export const SearchIcon = styled(BiSearch)<SearchIconProps>`
   ${({ theme }) => css`
-    color: #666666;
+    color: ${theme.colors.c2};
   `}
   position: absolute;
   display: ${(props) => (props.inputvalue.length > 0 ? 'none' : 'block')};
@@ -61,11 +61,10 @@ export const SearchIcon = styled(BiSearch)<SearchIconProps>`
 
 export const MovieList = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   padding: 2rem;
-  gap: 20px;
-  max-width: 100%;
-
+  gap: 15px;
+  width: 100%;
   @media screen and (width < 501px) {
     gap: 10px;
   }

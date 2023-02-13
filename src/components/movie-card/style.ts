@@ -38,15 +38,18 @@ export const BookmarkIcon = styled(MdBookmark)`
   `}
 `;
 
-export const LikeIcon = styled(BiLike)`
+type LikeIconProps = {
+  isLiked: boolean
+};
+export const LikeIcon = styled(BiLike)<LikeIconProps>`
   ${({ theme }) => css`
     display: none;
     top: 2%;
     left: 50%;
     transform: translate(-50%, 0%);
     background-color: ${theme.colors.c8};
-    color: ${theme.colors.c1};
   `}
+  color: ${(props) => (props.isLiked ? '#fbc500' : '#ffffff')}
 `;
 
 export const DislikeIcon = styled(BiDislike)`

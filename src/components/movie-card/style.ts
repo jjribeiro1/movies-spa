@@ -6,6 +6,7 @@ export const Card = styled.li`
   display: block;
   list-style: none;
   position: relative;
+  max-width: 200px;
 
   :hover {
     cursor: pointer;

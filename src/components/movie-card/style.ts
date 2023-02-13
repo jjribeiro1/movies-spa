@@ -40,7 +40,7 @@ export const BookmarkIcon = styled(MdBookmark)`
 `;
 
 type LikeIconProps = {
-  isLiked: boolean
+  isfavorite: boolean;
 };
 export const LikeIcon = styled(BiLike)<LikeIconProps>`
   ${({ theme }) => css`
@@ -50,7 +50,7 @@ export const LikeIcon = styled(BiLike)<LikeIconProps>`
     transform: translate(-50%, 0%);
     background-color: ${theme.colors.c8};
   `}
-  color: ${(props) => (props.isLiked ? '#fbc500' : '#ffffff')}
+  color: ${(props) => (props.isfavorite ? '#fbc500' : '#ffffff')}
 `;
 
 export const DislikeIcon = styled(BiDislike)`

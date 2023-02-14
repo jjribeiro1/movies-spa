@@ -29,7 +29,7 @@ export function ToastMessage({
         open={openToast}
         onOpenChange={setOpenToast}
         defaultOpen={false}
-        typeMessage={typeMessages}
+        typemessage={typeMessages}
       >
         <ToastHeader>
           <ToastTitle>{title}</ToastTitle>

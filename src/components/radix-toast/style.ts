@@ -11,7 +11,7 @@ export const ToastViewport = styled(Viewport)`
 `;
 
 export type ToastType = {
-  typeMessage?: string;
+  typemessage?: string;
 };
 
 export const ToastRoot = styled(Root)<ToastType>`
@@ -21,7 +21,7 @@ export const ToastRoot = styled(Root)<ToastType>`
   gap: 0.5rem;
   border-radius: 5px;
   color: #ffffff;
-  background-color: ${(props) => (props.typeMessage === 'success' ? '#1c252f' : '#e62f30')};
+  background-color: ${(props) => (props.typemessage === 'success' ? '#1c252f' : '#e62f30')};
 `;
 
 export const ToastTitle = styled(Title)`

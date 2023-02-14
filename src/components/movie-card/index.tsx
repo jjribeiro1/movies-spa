@@ -6,24 +6,19 @@ import { useEffect, useState } from 'react';
 
 interface MovieCardProps {
   movie: Movie;
+  isFavorite: boolean;
+  changeFavorite: (movie: Movie) => void;
 }
 
-export function MovieCard({ movie }: MovieCardProps) {
+export function MovieCard({ movie, isFavorite, changeFavorite }: MovieCardProps) {
   const [toastMessage, setToastMessage] = useState<string[]>([]);
   const [typeToastMessage, setTypeToastMessage] = useState('');
   const [openToast, setOpenToast] = useState(false);
-  const [favoriteMoviesOnProfile, setFavoriteMoviesOnProfile] = useState<Movie[]>([]);
-  const [control, setControl] = useState(false);
 
-  async function getFavoriteMoviesFromProfile() {
-    const favorites = await ProfileService().findFavoriteMoviesFromProfile();
-    setFavoriteMoviesOnProfile(favorites);
-  }
-
-  async function addMovieToFavorite(movieId: string) {
+  async function addMovieToFavorite(movie: Movie) {
     try {
-      await ProfileService().addMovieToFavorites(movieId);
-      setControl(!control);
+      await ProfileService().addMovieToFavorites(movie.id);
+      changeFavorite(movie);
       setTypeToastMessage('success');
       setToastMessage(['Filme adicionado aos favoritos']);
       setOpenToast(true);
@@ -35,10 +30,10 @@ export function MovieCard({ movie }: MovieCardProps) {
     }
   }
 
-  async function removeMovieFromFavorite(movieId: string) {
+  async function removeMovieFromFavorite(movie: Movie) {
     try {
-      await ProfileService().removeMovieFromFavorites(movieId);
-      setControl(!control);
+      await ProfileService().removeMovieFromFavorites(movie.id);
+      changeFavorite(movie);
       setTypeToastMessage('success');
       setToastMessage(['Filme removido dos favoritos']);
       setOpenToast(true);
@@ -49,20 +44,14 @@ export function MovieCard({ movie }: MovieCardProps) {
       console.log(error);
     }
   }
-
-  useEffect(() => {
-    getFavoriteMoviesFromProfile();
-  }, [control]);
-
   return (
     <>
       <Card>
         <BookmarkIcon />
         <LikeIcon
-          isfavorite={favoriteMoviesOnProfile.some((favoriteMovie) => favoriteMovie.id === movie.id)}
-          onClick={() => addMovieToFavorite(movie.id)}
+          isfavorite={isFavorite}
+          onClick={() => (isFavorite ? removeMovieFromFavorite(movie) : addMovieToFavorite(movie))}
         />
-        <DislikeIcon onClick={() => removeMovieFromFavorite(movie.id)} />
         <img src={movie.imageUrl} alt="imagem do filme" />
         <ToastMessage
           openToast={openToast}

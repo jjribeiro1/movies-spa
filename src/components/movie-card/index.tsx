@@ -1,8 +1,8 @@
-import { BookmarkIcon, Card, DislikeIcon, LikeIcon } from './style';
+import { Card, LikeIcon } from './style';
 import { Movie } from '../../types/movie-service-types';
 import { ProfileService } from '../../services/profile-service';
 import { ToastMessage } from '../radix-toast';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface MovieCardProps {
   movie: Movie;
@@ -47,7 +47,6 @@ export function MovieCard({ movie, isFavorite, changeFavorite }: MovieCardProps)
   return (
     <>
       <Card>
-        <BookmarkIcon />
         <LikeIcon
           isfavorite={isFavorite}
           onClick={() => (isFavorite ? removeMovieFromFavorite(movie) : addMovieToFavorite(movie))}

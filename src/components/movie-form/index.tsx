@@ -75,9 +75,9 @@ export function MovieForm({ onSubmit, movie, btnText }: RegisterMovieFormProps) 
 
       <SelectControls>
         <label htmlFor="genreIds">Gênero</label>
-        <SelectGenre name="genreIds" id="genreIds">
+        <SelectGenre name="genreIds" id="genreIds" defaultValue={movie?.genres[0].id ?? 'default'}>
           {btnText === 'Cadastrar' && (
-            <option value="" selected disabled hidden>
+            <option selected disabled hidden>
               Selecione um gênero
             </option>
           )}
@@ -86,7 +86,7 @@ export function MovieForm({ onSubmit, movie, btnText }: RegisterMovieFormProps) 
             <option
               key={genre.id}
               value={genre.id}
-              selected={movie?.genres.some((genreMovie) => genre.name === genreMovie.name)}
+              selected={movie?.genres.some((movieGenre) => movieGenre.id === genre.id)}
             >
               {genre.name}
             </option>
@@ -96,9 +96,9 @@ export function MovieForm({ onSubmit, movie, btnText }: RegisterMovieFormProps) 
 
       <SelectControls>
         <label htmlFor="streamingIds">Streaming</label>
-        <SelectStreaming name="streamingIds" id="streamingIds">
+        <SelectStreaming name="streamingIds" id="streamingIds" defaultValue={movie?.stream[0].id ?? 'default'}>
           {btnText === 'Cadastrar' && (
-            <option value="" selected disabled hidden>
+            <option selected disabled hidden>
               Selecione um streaming
             </option>
           )}
@@ -106,9 +106,7 @@ export function MovieForm({ onSubmit, movie, btnText }: RegisterMovieFormProps) 
             <option
               key={streaming.id}
               value={streaming.id}
-              selected={movie?.stream.some(
-                (movieStreaming) => streaming.name === movieStreaming.name
-              )}
+              selected={movie?.stream.some((movieStreaming) => movieStreaming.id === streaming.id)}
             >
               {streaming.name}
             </option>

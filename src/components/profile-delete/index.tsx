@@ -23,7 +23,7 @@ export function DeleteProfile({
   setControl,
   setOpenDeleteAlert,
 }: DeleteProfileProps) {
-  const [errors, setErrors] = useState<string[]>([]);
+  const [toastMessage, setToastMessage] = useState<string[]>([]);
   const [openToast, setOpenToast] = useState(false);
 
   async function removeProfile() {
@@ -32,7 +32,7 @@ export function DeleteProfile({
       setControl(!control);
       setOpenDeleteAlert(false);
     } catch (error: any) {
-      setErrors(['Um erro inesperado ocorreu, não foi possível excluir o perfil']);
+      setToastMessage(['Um erro inesperado ocorreu, não foi possível excluir o perfil']);
       setOpenToast(true);
     }
   }
@@ -54,7 +54,7 @@ export function DeleteProfile({
         openToast={openToast}
         setOpenToast={setOpenToast}
         title="Erro ao excluir perfil"
-        messages={errors}
+        messages={toastMessage}
       />
     </>
   );

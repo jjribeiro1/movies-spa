@@ -12,7 +12,7 @@ type RegisterUserFormProps = {
 };
 
 export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
-  const [errors, setErrors] = useState<string[]>([]);
+  const [toastMessage, setToastMessage] = useState<string[]>([]);
   const [openToast, setOpenToast] = useState(false);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -37,7 +37,7 @@ export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
     ValidateCpf(data.cpf) ? null : error.push('Cpf inválido');
 
     if (error.length > 0) {
-      setErrors(error);
+      setToastMessage(error);
       setOpenToast(true);
       return;
     }
@@ -50,17 +50,7 @@ export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
       await UserService().register(data);
       setOpenRegister(false);
     } catch (error: any) {
-      if (error.response.data.message === 'Email must be unique') {
-        setErrors(['Alguém já possui este email. Tente novamente']);
-        setOpenToast(true);
-        return;
-      }
-      if (error.response.data.message === 'Cpf must be unique') {
-        setErrors(['Alguém já possui este Cpf. Tente novamente']);
-        setOpenToast(true);
-        return;
-      }
-      setErrors([error.response.data.message]);
+      setToastMessage([error.response.data.message]);
       setOpenToast(true);
     }
   }
@@ -101,7 +91,7 @@ export function RegisterUserForm({ setOpenRegister }: RegisterUserFormProps) {
         openToast={openToast}
         setOpenToast={setOpenToast}
         title="Erro ao se cadastrar"
-        messages={errors}
+        messages={toastMessage}
       />
     </>
   );

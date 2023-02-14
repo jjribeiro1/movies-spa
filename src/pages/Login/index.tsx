@@ -11,7 +11,7 @@ import { LocalStorageHelper } from '../../helper/local-storage';
 
 export function Login() {
   const navigate = useNavigate();
-  const [errors, setErrors] = useState<string[]>([]);
+  const [toastMessage, setToastMessage] = useState<string[]>([]);
   const [openToast, setOpenToast] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
 
@@ -31,7 +31,7 @@ export function Login() {
         );
 
     if (error.length > 0) {
-      setErrors(error);
+      setToastMessage(error);
       setOpenToast(true);
       return;
     }
@@ -47,12 +47,7 @@ export function Login() {
         navigate('/profile');
       }
     } catch (error: any) {
-      if (error.response.status === 401) {
-        setErrors(['Email ou senha incorretos']);
-        setOpenToast(true);
-        return;
-      }
-      setErrors(['Um erro inesperado ocorreu ao fazer login']);
+      setToastMessage([error.response.data.message]);
       setOpenToast(true);
     }
   }
@@ -87,7 +82,7 @@ export function Login() {
         openToast={openToast}
         setOpenToast={setOpenToast}
         title="Erro ao fazer login"
-        messages={errors}
+        messages={toastMessage}
       />
     </LoginSection>
   );

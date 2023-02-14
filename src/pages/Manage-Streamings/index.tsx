@@ -109,7 +109,7 @@ export function ManageStreamings() {
       setControl(!control);
       setOpenEditModal(false);
     } catch (error: any) {
-      setToastMessage([error.response.data.message]);
+      setToastMessage(error.response.data.message);
       setOpenToast(true);
     }
   }

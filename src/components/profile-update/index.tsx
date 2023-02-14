@@ -17,7 +17,7 @@ export function UpdateProfile({
   control,
   setControl,
 }: UpdateProfileProps) {
-  const [errors, setErrors] = useState<string[]>([]);
+  const [toastMessage, setToastMessage] = useState<string[]>([]);
   const [openToast, setOpenToast] = useState(false);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -32,7 +32,7 @@ export function UpdateProfile({
     data.name.length >= 3 ? null : error.push('Nome deve ter pelo menos 3 caracterers');
 
     if (error.length > 0) {
-      setErrors(error);
+      setToastMessage(error);
       setOpenToast(true);
       return;
     }
@@ -46,12 +46,7 @@ export function UpdateProfile({
       setControl(!control);
       setOpenUpdateModal(false);
     } catch (error: any) {
-      if (error.response.data.message[0] === 'name must be longer than or equal to 3 characters') {
-        setErrors(['Nome deve ter pelo menos 3 caracterers']);
-        setOpenToast(true);
-        return;
-      }
-      setErrors(['Erro inesperado ao atualizar perfil']);
+      setToastMessage(error.response.data.message);
       setOpenToast(true);
     }
   }
@@ -63,7 +58,7 @@ export function UpdateProfile({
         openToast={openToast}
         setOpenToast={setOpenToast}
         title="Erro ao atualizar perfil"
-        messages={errors}
+        messages={toastMessage}
       />
     </>
   );

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { LocalStorageHelper } from '../helper/local-storage';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://m5-movies-api-production.up.railway.app/',
 });
 
 api.interceptors.request.use(

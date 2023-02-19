@@ -2,8 +2,12 @@ import axios from 'axios';
 import { LocalStorageHelper } from '../helper/local-storage';
 
 export const api = axios.create({
-  baseURL: 'https://m5-movies-api-production.up.railway.app/',
+  baseURL:
+    import.meta.env.MODE === 'development'
+      ? import.meta.env.VITE_DEV_BASE_URL
+      : import.meta.env.VITE_PROD_BASE_URL,
 });
+
 
 api.interceptors.request.use(
   function (config) {

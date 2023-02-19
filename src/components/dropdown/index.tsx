@@ -34,7 +34,7 @@ export function Dropdown() {
               </DropdownMenuItem>
             </>
           )}
-
+          <DropdownMenuItem onClick={() => navigate('/favorites')}>Favoritos</DropdownMenuItem>
           <DropdownMenuItem onClick={() => navigate('/profile')}>Perfis</DropdownMenuItem>
           <DropdownMenuItem onClick={logOut}>Sair</DropdownMenuItem>
         </DropdownGroup>

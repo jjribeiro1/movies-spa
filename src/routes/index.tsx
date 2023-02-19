@@ -4,6 +4,7 @@ import { Login } from '../pages/Login';
 import { ManageGenres } from '../pages/Manage-Genres';
 import { ManageMovies } from '../pages/Manage-Movies';
 import { ManageStreamings } from '../pages/Manage-Streamings';
+import { FavoriteMovies } from '../pages/Favorite-Movies';
 import { Profiles } from '../pages/Profiles';
 
 export const router = createBrowserRouter([
@@ -32,5 +33,9 @@ export const router = createBrowserRouter([
   {
     path: '/manage-movies',
     element: <ManageMovies />
+  },
+  {
+    path: '/favorites',
+    element: <FavoriteMovies />
   }
 ]);

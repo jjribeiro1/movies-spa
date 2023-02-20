@@ -5,6 +5,7 @@ export const Card = styled.li`
   display: block;
   list-style: none;
   position: relative;
+  max-height: 295px;
   max-width: 200px;
 
   :hover {
@@ -23,6 +24,7 @@ export const Card = styled.li`
 
   img {
     height: 100%;
+    width: 100%;
     border-radius: 3px;
   }
 `;

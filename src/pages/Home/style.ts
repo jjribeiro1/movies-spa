@@ -60,12 +60,10 @@ export const SearchIcon = styled(BiSearch)<SearchIconProps>`
 `;
 
 export const MovieList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  padding: 2rem;
+  display: flex;
   gap: 15px;
+  flex-wrap: wrap;
+  padding: 2rem;
   width: 100%;
-  @media screen and (width < 501px) {
-    gap: 10px;
-  }
+  justify-content: center;
 `;

@@ -19,8 +19,12 @@ export const FavoritesSection = styled.section`
 
 export const FavoritesSectionTitle = styled.h2`
   ${({ theme }) => css`
-    color: ${theme.colors.c1};
+    color: ${theme.colors.c4};
     font-size: 2.5rem;
+
+    @media screen and (width <= 1000px) {
+      font-size: 2rem;
+    }
   `}
 `;
 

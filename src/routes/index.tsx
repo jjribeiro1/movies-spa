@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 import { ManageGenres } from '../pages/Manage-Genres';
-import { ManageMovies } from '../pages/Manage-Movies';
+import { ManageMovies } from '../pages/manage-Movies';
 import { ManageStreamings } from '../pages/Manage-Streamings';
 import { FavoriteMovies } from '../pages/Favorite-Movies';
 import { Profiles } from '../pages/Profiles';
